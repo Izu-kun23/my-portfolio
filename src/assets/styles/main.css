@@ -1,0 +1,115 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-sans: 'Google Sans', sans-serif;
+}
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    scroll-behavior: auto;
+    overflow-x: clip;
+  }
+
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+
+  body {
+    @apply m-0 min-h-dvh bg-white font-sans text-gray-900;
+    line-height: 1.5;
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+  }
+
+  #app {
+    @apply min-h-dvh;
+  }
+}
+
+@layer components {
+  .unveil-root {
+    @apply relative w-full;
+  }
+
+  .unveil-stage {
+    @apply sticky top-0 h-[100svh] w-full overflow-hidden;
+  }
+
+  .unveil-stage--reduced {
+    @apply static flex h-auto flex-col overflow-visible;
+  }
+
+  .unveil-stage--free {
+    @apply static flex h-auto w-full flex-col overflow-visible;
+  }
+
+  .unveil-stage--reduced .unveil-panel,
+  .unveil-stage--free .unveil-panel {
+    @apply static relative h-[100svh] min-h-[100svh] w-full;
+  }
+
+  .unveil-stage--free .unveil-panel {
+    scroll-margin-top: calc(env(safe-area-inset-top) + 3.5rem);
+  }
+
+  /* Hero fits one screen by design, but work's project list must be free to
+     grow past 100svh on a mobile viewport. (Services needs the same relief,
+     but its panel wrapper carries a bare `min-h-0` utility that — being in
+     Tailwind's utilities layer — always wins over this rule regardless of
+     specificity, so that one's enforced inline from useUnveilScroll instead.) */
+  .unveil-stage--free .unveil-panel--work {
+    height: auto;
+    min-height: 100svh;
+  }
+
+  .unveil-panel {
+    @apply absolute inset-0;
+  }
+
+  @media (pointer: fine) {
+    .unveil-panel {
+      will-change: transform;
+    }
+  }
+
+  .unveil-panel--hero {
+    z-index: 5;
+  }
+
+  .unveil-panel--services {
+    z-index: 4;
+  }
+
+  .unveil-panel--work {
+    z-index: 3;
+  }
+
+  .unveil-panel--about {
+    z-index: 2;
+  }
+
+  .unveil-panel--contact {
+    z-index: 1;
+  }
+
+  .section-subtext {
+    @apply m-0 mt-4 max-w-md text-sm leading-relaxed sm:max-w-lg sm:text-base;
+  }
+
+  .section-subtext--light {
+    @apply text-gray-600;
+  }
+
+  .section-subtext--dark {
+    @apply text-gray-400;
+  }
+}
