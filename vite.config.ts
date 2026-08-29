@@ -5,6 +5,17 @@ import { fileURLToPath, URL } from 'node:url'
 
 export default defineConfig({
   plugins: [tailwindcss(), vue()],
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'vendor-vue': ['vue', 'vue-router'],
+          'vendor-motion': ['motion-v'],
+          'vendor-gsap': ['gsap'],
+        },
+      },
+    },
+  },
   resolve: {
     alias: { '@': fileURLToPath(new URL('./src', import.meta.url)) },
   },
