@@ -67,7 +67,7 @@ onUnmounted(() => {
     <div class="w-full" aria-hidden="true">
       <div class="mb-3 flex justify-between font-mono text-[0.6rem] tracking-[0.14em] text-white/45 uppercase sm:text-[0.68rem]">
         <span>Loading</span>
-        <span>Manchester, UK</span>
+        <span>United Kingdom</span>
       </div>
       <div class="h-px w-full bg-white/20">
         <div

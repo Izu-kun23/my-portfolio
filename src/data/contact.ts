@@ -4,7 +4,7 @@ export const contactDetails = {
   subtext:
     'Tell me what you are making and where it should go — I will bring the engineering and the polish.',
   email: 'Izuchukwuonuoha6@gmail.com',
-  location: 'Manchester, United Kingdom',
+  location: 'United Kingdom',
   name: 'Izuchukwu Tony',
 }
 
