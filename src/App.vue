@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { computed, nextTick, watch } from 'vue'
+import { computed, nextTick, shallowRef, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { AnimatePresence, motion } from 'motion-v'
 
 import Home from '@/pages/Home.vue'
+import SplashScreen from '@/components/SplashScreen.vue'
 import WorkCaseStudy from '@/pages/WorkCaseStudy.vue'
 import {
   enforceCaseStudyHomeScroll,
@@ -12,6 +13,7 @@ import {
 
 const route = useRoute()
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+const isSplashVisible = shallowRef(true)
 
 const isCaseStudy = computed(() => route.name === 'work-case-study')
 
@@ -61,6 +63,10 @@ watch(
         <WorkCaseStudy />
       </motion.div>
     </AnimatePresence>
+
+    <Transition name="splash">
+      <SplashScreen v-if="isSplashVisible" @complete="isSplashVisible = false" />
+    </Transition>
   </div>
 </template>
 
@@ -69,5 +75,19 @@ watch(
   overscroll-behavior-y: contain;
   -webkit-overflow-scrolling: touch;
   touch-action: pan-y;
+}
+
+.splash-leave-active {
+  transition: transform 700ms cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+.splash-leave-to {
+  transform: translateY(-100%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .splash-leave-active {
+    transition-duration: 0ms;
+  }
 }
 </style>

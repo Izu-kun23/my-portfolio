@@ -7,6 +7,6 @@ export interface SocialLink {
 }
 
 export const socialLinks: SocialLink[] = [
-  { label: 'GitHub', href: 'https://github.com/', icon: 'github' },
+  { label: 'GitHub', href: 'https://github.com/Izu-kun23', icon: 'github' },
   { label: 'LinkedIn', href: 'https://linkedin.com/in/', icon: 'linkedin' },
 ]

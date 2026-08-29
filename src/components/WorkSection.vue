@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted, onUnmounted, useTemplateRef } from 'vue'
-import { motion } from 'motion-v'
+import { onMounted, onUnmounted, useTemplateRef, watch } from 'vue'
 
 import MotionScrambleText from '@/components/MotionScrambleText.vue'
 import WorkProjectCard from '@/components/WorkProjectCard.vue'
@@ -8,20 +7,21 @@ import { useWorkMotionScroll } from '@/composables/useWorkMotionScroll'
 import { useWorkSectionReveal } from '@/composables/useWorkSectionReveal'
 import { resetWorkScroller, useWorkScrollHandoff } from '@/composables/useWorkScrollHandoff'
 import { workProjects, workSectionIntro } from '@/data/work'
+import { gsap } from '@/lib/gsap'
 import { lenis } from '@/lib/lenis'
-import { prefersFreeScrollLayout, prefersTouchInteraction } from '@/lib/scrollMode'
+import { prefersTouchInteraction } from '@/lib/scrollMode'
 import {
   registerWorkScrollerReset,
   unregisterWorkScrollerReset,
 } from '@/lib/workScroller'
 
 const isMobileLayout = prefersTouchInteraction()
-const usesInternalScroll = !prefersFreeScrollLayout()
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
 const sectionRef = useTemplateRef<HTMLElement>('sectionRef')
 const scrollerRef = useTemplateRef<HTMLElement>('scrollerRef')
 const digitTrackRef = useTemplateRef<HTMLElement>('digitTrackRef')
+const digitMotionRef = useTemplateRef<HTMLElement>('digitMotionRef')
 const projectRefs = useTemplateRef<(HTMLElement | null)[]>('projectRefs')
 
 const sectionReveal = useWorkSectionReveal()
@@ -31,19 +31,13 @@ const { activeIndex, digitY, refreshMeasurements, resetToFirst } = useWorkMotion
   scrollerRef,
   projectRefs,
   digitTrackRef,
-  { enabled: usesInternalScroll },
+  { enabled: true },
 )
 
 useWorkScrollHandoff(scrollerRef, {
   sectionRef,
-  enabled: usesInternalScroll,
+  enabled: false,
 })
-
-const digitTransition = computed(() =>
-  prefersReducedMotion
-    ? { duration: 0 }
-    : { type: 'spring' as const, stiffness: 320, damping: 32, mass: 0.85 },
-)
 
 function resetWorkScrollerState() {
   resetWorkScroller(scrollerRef)
@@ -61,14 +55,38 @@ sectionReveal.reveal = (onComplete?: () => void) => {
   })
 }
 
+// Scroll-reveal reel for the digit beside "0"
+watch(digitY, (y) => {
+  const el = digitMotionRef.value
+  if (!el) return
+
+  gsap.killTweensOf(el)
+
+  if (prefersReducedMotion) {
+    gsap.set(el, { y })
+    return
+  }
+
+  gsap.to(el, {
+    y,
+    duration: 0.45,
+    ease: 'power3.out',
+    overwrite: true,
+  })
+})
+
 onMounted(() => {
   registerWorkScrollerReset(resetWorkScrollerState)
+  if (digitMotionRef.value) {
+    gsap.set(digitMotionRef.value, { y: digitY.value })
+  }
   if (isMobileLayout) {
     requestAnimationFrame(() => lenis.resize())
   }
 })
 
 onUnmounted(() => {
+  if (digitMotionRef.value) gsap.killTweensOf(digitMotionRef.value)
   unregisterWorkScrollerReset()
 })
 
@@ -79,14 +97,14 @@ defineExpose({ reveal: sectionReveal, resetWorkScroller: resetWorkScrollerState 
   <section
     id="work"
     ref="sectionRef"
-    class="flex w-full flex-col bg-white px-4 pb-[calc(2rem+env(safe-area-inset-bottom))] sm:px-6 md:h-full md:min-h-0 md:overflow-hidden md:px-12 md:pb-0 lg:px-20"
+    class="flex w-full flex-col bg-white px-4 pb-[calc(2rem+env(safe-area-inset-bottom))] sm:px-6 md:min-h-[100svh] md:px-12 md:pb-10 lg:px-20"
   >
     <div
-      class="section-content mx-auto grid w-full max-w-7xl md:h-full md:min-h-0 md:grid-cols-[minmax(6.5rem,9rem)_minmax(0,1fr)] md:gap-x-10 lg:grid-cols-[minmax(7.5rem,10rem)_minmax(0,1fr)] lg:gap-x-14 xl:gap-x-16"
+      class="section-content mx-auto grid w-full max-w-7xl md:grid-cols-[minmax(6.5rem,9rem)_minmax(0,1fr)] md:gap-x-10 lg:grid-cols-[minmax(7.5rem,10rem)_minmax(0,1fr)] lg:gap-x-14 xl:gap-x-16"
     >
       <!-- Project index (desktop) -->
       <aside
-        class="work-index-aside sticky top-0 hidden items-center justify-start self-start md:flex md:h-full"
+        class="work-index-aside sticky top-[calc(4rem+env(safe-area-inset-top))] hidden items-center justify-start self-start md:flex md:h-[min(70vh,32rem)]"
       >
         <div
           class="work-index inline-flex items-center font-sans text-[clamp(4.5rem,9vw,8.5rem)] leading-none font-bold tracking-tight text-gray-900"
@@ -96,10 +114,9 @@ defineExpose({ reveal: sectionReveal, resetWorkScroller: resetWorkScrollerState 
           <span class="shrink-0">0</span>
 
           <span class="work-index__window inline-block overflow-hidden align-top">
-            <motion.span
+            <span
+              ref="digitMotionRef"
               class="work-index__motion block will-change-transform"
-              :animate="{ y: digitY }"
-              :transition="digitTransition"
             >
               <span ref="digitTrackRef" class="work-index__track block">
                 <span
@@ -110,7 +127,7 @@ defineExpose({ reveal: sectionReveal, resetWorkScroller: resetWorkScrollerState 
                   {{ projectIndex }}
                 </span>
               </span>
-            </motion.span>
+            </span>
           </span>
 
           <span class="shrink-0">.</span>
@@ -120,8 +137,7 @@ defineExpose({ reveal: sectionReveal, resetWorkScroller: resetWorkScrollerState 
       <!-- Title + projects scroll together -->
       <div
         ref="scrollerRef"
-        :data-lenis-prevent="usesInternalScroll ? '' : undefined"
-        class="work-scroller min-w-0 md:h-full md:min-h-0 md:overflow-y-auto md:pb-16"
+        class="work-scroller min-w-0"
       >
         <header
           class="work-section-header pt-[calc(2.75rem+env(safe-area-inset-top))] pb-8 text-left md:pt-20 md:pb-10"
@@ -157,15 +173,7 @@ defineExpose({ reveal: sectionReveal, resetWorkScroller: resetWorkScrollerState 
 
 <style scoped>
 .work-scroller {
-  overscroll-behavior-y: contain;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
   -webkit-overflow-scrolling: touch;
-  touch-action: pan-y;
-}
-
-.work-scroller::-webkit-scrollbar {
-  display: none;
 }
 
 .work-project-panel {

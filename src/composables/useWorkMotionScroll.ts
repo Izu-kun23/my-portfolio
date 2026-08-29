@@ -1,5 +1,7 @@
 import { nextTick, onMounted, onUnmounted, ref, type Ref } from 'vue'
 
+import { lenis } from '@/lib/lenis'
+
 interface UseWorkMotionScrollOptions {
   enabled?: boolean
 }
@@ -18,85 +20,70 @@ export function useWorkMotionScroll(
   let rafId = 0
   let resizeObserver: ResizeObserver | null = null
   let digitHeight = 0
+  let unbindLenis: (() => void) | null = null
 
   function getProjects(): HTMLElement[] {
-    return (projectRefs.value ?? []).filter(
-      (project): project is HTMLElement => project !== null,
-    )
+    const raw = projectRefs.value
+    if (!raw) return []
+    // useTemplateRef + v-for can be a single node briefly; normalize to an array.
+    const list = Array.isArray(raw) ? raw : [raw]
+    return list.filter((project): project is HTMLElement => project instanceof HTMLElement)
   }
 
   function updateDigitHeight() {
     const track = digitTrackRef.value
     const firstDigit = track?.children[0] as HTMLElement | undefined
-    digitHeight = firstDigit?.getBoundingClientRect().height ?? 0
+    if (!firstDigit) return
+    // Prefer layout height (stable) over getBoundingClientRect during transforms.
+    const next = firstDigit.offsetHeight || firstDigit.getBoundingClientRect().height
+    if (next > 0) digitHeight = next
   }
 
   function setActiveIndex(index: number) {
+    updateDigitHeight()
     activeIndex.value = index
-    digitY.value = -(index - 1) * digitHeight
+    digitY.value = digitHeight > 0 ? -(index - 1) * digitHeight : 0
   }
 
-  function panelTopWithinScroller(project: HTMLElement, scroller: HTMLElement): number {
-    return project.getBoundingClientRect().top - scroller.getBoundingClientRect().top + scroller.scrollTop
-  }
-
+  /**
+   * Index = last project whose top has crossed ~55% of the viewport.
+   * Higher threshold = advances earlier while scrolling down.
+   */
   function resolveActiveIndex(): number {
-    const scroller = scrollerRef.value
     const projects = getProjects()
-    if (!scroller || projects.length === 0) return 1
+    if (projects.length === 0) return 1
 
-    const firstPanel = projects[0]
-    if (
-      firstPanel &&
-      scroller.scrollTop + scroller.clientHeight * 0.28 < panelTopWithinScroller(firstPanel, scroller)
-    ) {
-      return 1
+    const threshold = window.innerHeight * 0.55
+    let active = 0
+
+    for (let i = 0; i < projects.length; i += 1) {
+      if (projects[i]!.getBoundingClientRect().top <= threshold) {
+        active = i
+      }
     }
 
-    const anchor = scroller.scrollTop + scroller.clientHeight * 0.42
-    let bestIndex = 0
-    let bestDistance = Number.POSITIVE_INFINITY
-
-    projects.forEach((project, index) => {
-      const top = panelTopWithinScroller(project, scroller)
-      const bottom = top + project.offsetHeight
-      const midpoint = top + project.offsetHeight * 0.5
-
-      if (anchor >= top && anchor <= bottom) {
-        bestIndex = index
-        bestDistance = 0
-        return
-      }
-
-      const distance = Math.abs(anchor - midpoint)
-      if (distance < bestDistance) {
-        bestDistance = distance
-        bestIndex = index
-      }
-    })
-
-    return bestIndex + 1
+    return active + 1
   }
 
   function updateActiveIndex() {
     const nextIndex = resolveActiveIndex()
-    if (nextIndex === activeIndex.value) return
+    if (nextIndex === activeIndex.value && digitHeight > 0) return
     setActiveIndex(nextIndex)
   }
 
   function onScroll() {
-    cancelAnimationFrame(rafId)
-    rafId = requestAnimationFrame(updateActiveIndex)
+    // Update on the same frame as Lenis — no extra rAF deferral.
+    updateActiveIndex()
   }
 
   function refreshMeasurements() {
     updateDigitHeight()
-    setActiveIndex(activeIndex.value)
+    updateActiveIndex()
   }
 
   function resetToFirst() {
-    activeIndex.value = 1
     updateDigitHeight()
+    activeIndex.value = 1
     digitY.value = 0
   }
 
@@ -106,30 +93,33 @@ export function useWorkMotionScroll(
     await nextTick()
     await new Promise<void>((resolve) => requestAnimationFrame(() => resolve()))
 
-    const scroller = scrollerRef.value
     const track = digitTrackRef.value
-    const projects = getProjects()
-
-    if (!scroller || !track || projects.length === 0) return
+    if (!track || getProjects().length === 0) return
 
     refreshMeasurements()
-    setActiveIndex(1)
 
-    scroller.addEventListener('scroll', onScroll, { passive: true })
+    lenis.on('scroll', onScroll)
+    unbindLenis = () => lenis.off('scroll', onScroll)
+    window.addEventListener('scroll', onScroll, { passive: true })
 
     resizeObserver = new ResizeObserver(() => {
-      refreshMeasurements()
+      cancelAnimationFrame(rafId)
+      rafId = requestAnimationFrame(refreshMeasurements)
     })
 
-    resizeObserver.observe(scroller)
+    const scroller = scrollerRef.value
+    if (scroller) resizeObserver.observe(scroller)
     resizeObserver.observe(track)
+    getProjects().forEach((project) => resizeObserver?.observe(project))
 
     window.addEventListener('resize', refreshMeasurements)
   })
 
   onUnmounted(() => {
     cancelAnimationFrame(rafId)
-    scrollerRef.value?.removeEventListener('scroll', onScroll)
+    unbindLenis?.()
+    unbindLenis = null
+    window.removeEventListener('scroll', onScroll)
     resizeObserver?.disconnect()
     resizeObserver = null
     window.removeEventListener('resize', refreshMeasurements)

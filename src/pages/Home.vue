@@ -8,6 +8,7 @@ import AppNavbar from '@/components/AppNavbar.vue'
 import ContactSection from '@/components/ContactSection.vue'
 import HeroSection from '@/components/HeroSection.vue'
 import ServicesSection from '@/components/ServicesSection.vue'
+import SiteFooter from '@/components/SiteFooter.vue'
 import WorkSection from '@/components/WorkSection.vue'
 import { useHashScroll } from '@/composables/useHashScroll'
 import { unveilActiveIndex, useUnveilScroll } from '@/composables/useUnveilScroll'
@@ -65,28 +66,41 @@ useHashScroll()
     <AppMenuSidebar />
 
     <div ref="unveilRootRef" class="unveil-root">
+      <!-- Only the hero participates in the stack / pin scroll -->
       <div ref="unveilStageRef" class="unveil-stage">
         <div ref="heroPanelRef" class="unveil-panel unveil-panel--hero flex flex-col">
           <AppNavbar />
           <HeroSection class="min-h-0 flex-1" />
         </div>
-
-        <div ref="servicesPanelRef" class="unveil-panel unveil-panel--services flex min-h-0 min-w-0 flex-col">
-          <ServicesSection ref="servicesSectionRef" class="min-h-0 flex-1" />
-        </div>
-
-        <div ref="workPanelRef" class="unveil-panel unveil-panel--work md:flex md:min-h-0 md:flex-col">
-          <WorkSection ref="workSectionRef" class="md:min-h-0 md:flex-1" />
-        </div>
       </div>
 
-      <div ref="aboutPanelRef" class="unveil-panel unveil-panel--about relative w-full">
+      <!-- Remaining sections use normal document flow -->
+      <div
+        ref="servicesPanelRef"
+        class="unveil-panel unveil-panel--services unveil-panel--flow relative flex min-h-[100svh] w-full flex-col"
+      >
+        <ServicesSection ref="servicesSectionRef" class="min-h-0 flex-1" />
+      </div>
+
+      <div
+        ref="workPanelRef"
+        class="unveil-panel unveil-panel--work unveil-panel--flow relative flex w-full flex-col"
+      >
+        <WorkSection ref="workSectionRef" class="flex-1" />
+      </div>
+
+      <div ref="aboutPanelRef" class="unveil-panel unveil-panel--about unveil-panel--flow relative w-full">
         <AboutSection ref="aboutSectionRef" />
       </div>
 
-      <div ref="contactPanelRef" class="unveil-panel unveil-panel--contact relative w-full min-h-[100svh]">
+      <div
+        ref="contactPanelRef"
+        class="unveil-panel unveil-panel--contact unveil-panel--flow relative w-full min-h-[100svh]"
+      >
         <ContactSection ref="contactSectionRef" class="min-h-0 flex-1" />
       </div>
+
+      <SiteFooter />
     </div>
   </main>
 </template>

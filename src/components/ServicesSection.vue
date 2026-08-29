@@ -10,9 +10,9 @@ import {
 } from '@/composables/useMotionSectionReveal'
 import { useSectionScrollHandoff } from '@/composables/useSectionScrollHandoff'
 import { services, servicesSectionIntro } from '@/data/services'
-import { prefersFreeScrollLayout } from '@/lib/scrollMode'
+import frameCornersIcon from '@/assets/icons/frame-corners.png'
 
-const usesInternalScroll = !prefersFreeScrollLayout()
+const usesInternalScroll = false
 
 const sectionRef = useTemplateRef<HTMLElement>('sectionRef')
 const scrollerRef = useTemplateRef<HTMLElement>('scrollerRef')
@@ -46,7 +46,7 @@ defineExpose({ reveal: sectionReveal })
   <section
     id="services"
     ref="sectionRef"
-    class="relative flex w-full min-w-0 touch-pan-y flex-col pt-[calc(4rem+env(safe-area-inset-top))] pb-8 sm:pt-16 sm:pb-10 md:h-full md:min-h-0 md:overflow-hidden md:px-12 md:pt-20 lg:px-20"
+    class="relative flex w-full min-w-0 touch-pan-y flex-col pt-[calc(4rem+env(safe-area-inset-top))] pb-8 sm:pt-16 sm:pb-10 md:min-h-[100svh] md:px-12 md:pt-20 lg:px-20"
     :data-lenis-prevent="usesInternalScroll ? '' : undefined"
   >
     <div
@@ -77,15 +77,25 @@ defineExpose({ reveal: sectionReveal })
               {{ servicesSectionIntro.backgroundTitle }}
             </motion.p>
 
-            <motion.h2
-              class="relative z-10 m-0 text-[clamp(2rem,5.5vw,2.75rem)] leading-[1.05] font-bold tracking-tight text-gray-900 uppercase"
-              :variants="servicesRevealVariants.fadeUp"
-            >
-              <MotionScrambleText
-                :text="servicesSectionIntro.title"
-                :play="phase === 'visible'"
+            <div class="relative z-10 flex items-start justify-between gap-4">
+              <motion.h2
+                class="m-0 min-w-0 text-[clamp(2rem,5.5vw,2.75rem)] leading-[1.05] font-bold tracking-tight text-gray-900 uppercase"
+                :variants="servicesRevealVariants.fadeUp"
+              >
+                <MotionScrambleText
+                  :text="servicesSectionIntro.title"
+                  :play="phase === 'visible'"
+                />
+              </motion.h2>
+
+              <motion.img
+                :src="frameCornersIcon"
+                alt=""
+                aria-hidden="true"
+                class="mt-1 h-[clamp(1.75rem,4vw,2.5rem)] w-[clamp(1.75rem,4vw,2.5rem)] shrink-0 object-contain opacity-50"
+                :variants="servicesRevealVariants.fadeUp"
               />
-            </motion.h2>
+            </div>
 
             <motion.p
               class="section-subtext section-subtext--light relative z-10"
