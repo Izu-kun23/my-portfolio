@@ -4,7 +4,7 @@ import { socialLinks } from '@/data/socialLinks'
 
 <template>
   <div
-    class="pointer-events-auto absolute right-4 bottom-[calc(1.5rem+env(safe-area-inset-bottom))] z-40 flex flex-row flex-wrap justify-end gap-2 sm:right-6 sm:bottom-6 sm:flex-col sm:gap-3 md:right-12 lg:right-20"
+    class="pointer-events-auto absolute right-4 bottom-[calc(6rem+env(safe-area-inset-bottom))] z-40 flex flex-row flex-wrap justify-end gap-2 sm:right-6 sm:bottom-28 sm:flex-col sm:gap-3 md:right-12 lg:right-20"
   >
     <a
       v-for="link in socialLinks"

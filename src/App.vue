@@ -4,6 +4,7 @@ import { useRoute } from 'vue-router'
 import { AnimatePresence, motion } from 'motion-v'
 
 import Home from '@/pages/Home.vue'
+import CvDownloadPrompt from '@/components/CvDownloadPrompt.vue'
 import SplashScreen from '@/components/SplashScreen.vue'
 import WorkCaseStudy from '@/pages/WorkCaseStudy.vue'
 import {
@@ -67,6 +68,8 @@ watch(
     <Transition name="splash">
       <SplashScreen v-if="isSplashVisible" @complete="isSplashVisible = false" />
     </Transition>
+
+    <CvDownloadPrompt v-if="!isSplashVisible && !isCaseStudy" />
   </div>
 </template>
 
