@@ -99,7 +99,7 @@ defineExpose({ reveal: sectionReveal, resetWorkScroller: resetWorkScrollerState 
   <section
     id="work"
     ref="sectionRef"
-    class="flex w-full flex-col bg-white px-4 pb-[calc(2rem+env(safe-area-inset-bottom))] sm:px-6 md:min-h-[100svh] md:px-12 md:pb-10 lg:px-20"
+    class="flex w-full flex-col bg-[#f4f4f1] px-4 pb-[calc(2rem+env(safe-area-inset-bottom))] sm:px-6 md:min-h-[100svh] md:px-12 md:pb-10 lg:px-20"
   >
     <div
       class="section-content mx-auto grid w-full max-w-7xl md:grid-cols-[minmax(6.5rem,9rem)_minmax(0,1fr)] md:gap-x-10 lg:grid-cols-[minmax(7.5rem,10rem)_minmax(0,1fr)] lg:gap-x-14 xl:gap-x-16"
@@ -109,7 +109,7 @@ defineExpose({ reveal: sectionReveal, resetWorkScroller: resetWorkScrollerState 
         class="work-index-aside sticky top-[calc(4rem+env(safe-area-inset-top))] hidden items-center justify-start self-start md:flex md:h-[min(70vh,32rem)]"
       >
         <div
-          class="work-index inline-flex items-center font-sans text-[clamp(4.5rem,9vw,8.5rem)] leading-none font-bold tracking-tight text-gray-900"
+          class="work-index inline-flex items-center font-sans text-[clamp(4.5rem,9vw,8.5rem)] leading-none font-bold tracking-tight text-black"
           aria-live="polite"
           :aria-label="`Project ${activeIndex} of ${workProjects.length}`"
         >
@@ -145,7 +145,7 @@ defineExpose({ reveal: sectionReveal, resetWorkScroller: resetWorkScrollerState 
           class="work-section-header pt-[calc(2.75rem+env(safe-area-inset-top))] pb-8 text-left md:pt-20 md:pb-10"
         >
           <h2
-            class="m-0 text-[clamp(2rem,5.5vw,2.75rem)] leading-[1.05] font-bold tracking-tight text-gray-900 uppercase"
+            class="m-0 text-[clamp(2rem,5.5vw,2.75rem)] leading-[1.05] font-bold tracking-tight text-black uppercase"
           >
             <MotionScrambleText
               :text="workSectionIntro.title"

@@ -1,133 +1,124 @@
 <script setup lang="ts">
-import { computed, ref, useTemplateRef } from 'vue'
+import { computed, useTemplateRef } from 'vue'
 
-import ExperienceDetailModal from '@/components/ExperienceDetailModal.vue'
-import ExperienceListItem from '@/components/ExperienceListItem.vue'
-import { useExperienceCardModal } from '@/composables/useExperienceCardModal'
+import { useExperienceHorizontalStack } from '@/composables/useExperienceHorizontalStack'
 import { useSectionContentReveal } from '@/composables/useSectionContentReveal'
-import { aboutIntro, aboutStats, experienceEntries, type ExperienceEntry } from '@/data/about'
+import { aboutIntro, aboutStats, experienceEntries } from '@/data/about'
 
 const sectionRef = useTemplateRef<HTMLElement>('sectionRef')
 const eyebrowRef = useTemplateRef<HTMLElement>('eyebrowRef')
-const listItemRefs = useTemplateRef<(HTMLElement | null)[]>('listItemRefs')
-const overlayRef = useTemplateRef<HTMLElement>('overlayRef')
-const shellRef = useTemplateRef<HTMLElement>('shellRef')
-const flipRef = useTemplateRef<HTMLElement>('flipRef')
+const triggerRef = useTemplateRef<HTMLElement>('triggerRef')
+const desktopCardRefs = useTemplateRef<(HTMLElement | null)[]>('desktopCardRefs')
+const counterRef = useTemplateRef<HTMLElement>('counterRef')
+const progressRef = useTemplateRef<HTMLElement>('progressRef')
 
-const isModalOpen = ref(false)
+const experienceStat = computed(() => `${aboutStats[0]?.value ?? ''} ${aboutStats[0]?.label?.toLowerCase() ?? 'years of experience'}`)
+const scrollRunway = computed(() => ({ height: `${experienceEntries.length * 85}vh` }))
 
-const experienceStat = computed(
-  () => `${aboutStats[0]?.value ?? ''} ${aboutStats[0]?.label?.toLowerCase() ?? 'years of experience'}`,
-)
-
-const { selectedEntry, showBackFace, openFromCard, closeModal } = useExperienceCardModal(
-  isModalOpen,
-  { overlayRef, shellRef, flipRef },
-)
-
-function handleOpenEntry(entry: ExperienceEntry, element: HTMLElement) {
-  openFromCard(entry, element)
-}
+useExperienceHorizontalStack({ triggerRef, cardRefs: desktopCardRefs, counterRef, progressRef })
 
 const reveal = useSectionContentReveal({
   contentRef: sectionRef,
   scrambleRef: eyebrowRef,
-  scrambleText: '/EXPERIENCE',
-  itemRefs: listItemRefs,
+  scrambleText: 'EXPERIENCE /',
 })
 
 defineExpose({ reveal })
 </script>
 
 <template>
-  <section
-    id="about"
-    ref="sectionRef"
-    class="experience-section relative w-full bg-gray-900"
-  >
-    <div
-      class="section-content px-4 pt-[calc(3.5rem+env(safe-area-inset-top))] pb-14 sm:px-6 sm:pb-16 md:px-12 md:pb-20 lg:px-20 lg:pb-24"
-    >
-      <div class="mx-auto w-full max-w-6xl">
-        <div class="relative overflow-hidden">
-          <p
-            class="pointer-events-none absolute top-1/2 left-0 m-0 -translate-y-[42%] select-none text-[clamp(3.75rem,16vw,10.5rem)] leading-none font-bold tracking-tight text-gray-800 uppercase"
-            aria-hidden="true"
-          >
-            EXPERIENCE
+  <section id="about" ref="sectionRef" class="relative w-full overflow-x-clip bg-[#000000] text-[#f4f4f1]">
+    <div class="px-4 pt-24 sm:px-6 sm:pt-28 md:px-12 md:pt-32 lg:px-20 lg:pt-40">
+      <div class="mx-auto w-full max-w-7xl">
+        <h2 ref="eyebrowRef" class="m-0 text-[clamp(3.5rem,11vw,10rem)] leading-[0.82] font-extrabold tracking-[-0.07em] uppercase">
+          EXPERIENCE /
+        </h2>
+
+        <div class="mt-12 grid gap-5 border-t border-[#333333] pt-7 md:grid-cols-12 md:gap-8 lg:mt-20">
+          <p class="m-0 text-xs tracking-[0.14em] text-[#8a8a8a] uppercase md:col-span-4 md:text-center">Work history</p>
+          <p class="m-0 max-w-2xl text-[clamp(1.4rem,3vw,2.5rem)] leading-tight font-medium tracking-[-0.035em] text-[#d4d4d4] md:col-span-6">
+            {{ aboutIntro.experienceSubtext }}.
           </p>
-
-          <div
-            class="relative flex flex-col gap-4 border-b border-gray-800 pt-12 pb-7 sm:flex-row sm:items-start sm:justify-between sm:gap-8 sm:pt-16 sm:pb-9 lg:pt-20 lg:pb-10"
-          >
-            <div class="relative z-10 min-w-0">
-              <h2
-                ref="eyebrowRef"
-                class="m-0 text-[clamp(2.25rem,8vw,2.75rem)] leading-[1.05] font-bold tracking-tight text-white uppercase md:text-[clamp(2rem,3.5vw,2.75rem)]"
-              >
-                /EXPERIENCE
-              </h2>
-              <p class="section-subtext section-subtext--dark">
-                {{ aboutIntro.experienceSubtext }}
-              </p>
-            </div>
-
-            <p
-              class="relative z-10 m-0 shrink-0 text-sm tracking-tight text-gray-400 sm:pt-1 sm:text-[0.9375rem]"
-            >
-              {{ experienceStat }}
-            </p>
-          </div>
+          <p class="m-0 text-sm text-[#737373] md:col-span-2 md:text-right">{{ experienceStat }}</p>
         </div>
 
-        <ol class="m-0 flex list-none flex-col p-0">
-          <li
-            v-for="entry in experienceEntries"
-            :key="entry.id"
-            ref="listItemRefs"
-            class="experience-list-item border-b border-gray-800"
-          >
-            <ExperienceListItem
-              :entry="entry"
-              :disabled="isModalOpen"
-              @open="handleOpenEntry"
-            />
-          </li>
-        </ol>
+        <div class="experience-mobile mt-14 md:hidden">
+          <article v-for="(entry, index) in experienceEntries" :key="entry.id" class="border-t border-[#333333] py-7">
+            <div class="flex items-start justify-between gap-6">
+              <img v-if="entry.logo" :src="entry.logo" :alt="entry.logoAlt ?? `${entry.company} logo`" class="h-6 max-w-28 object-contain object-left grayscale" :class="entry.logoInvert ? 'invert' : ''" />
+              <span class="ml-auto font-mono text-xs text-[#737373]">{{ String(index + 1).padStart(2, '0') }}</span>
+            </div>
+            <h3 class="m-0 mt-8 text-[clamp(1.65rem,7vw,2.5rem)] leading-[1.02] font-semibold tracking-[-0.04em]">{{ entry.role }}</h3>
+            <p class="m-0 mt-2 text-sm text-[#8a8a8a]">{{ entry.company }} · {{ entry.period }}</p>
+            <ul class="m-0 mt-5 flex list-none flex-wrap gap-2 p-0">
+              <li v-for="tag in entry.tags" :key="tag" class="rounded-full border border-[#444444] px-3 py-1 text-xs text-[#8a8a8a]">{{ tag }}</li>
+            </ul>
+          </article>
+          <div class="border-t border-[#333333]" />
+        </div>
       </div>
     </div>
 
-    <Teleport to="body">
-      <div
-        ref="overlayRef"
-        class="experience-modal-overlay invisible fixed inset-0 z-[100] bg-black/70 opacity-0 backdrop-blur-sm"
-        :class="isModalOpen ? 'pointer-events-auto' : 'pointer-events-none'"
-        data-lenis-prevent
-        aria-hidden="true"
-        @click="closeModal"
-      />
+    <div ref="triggerRef" :style="scrollRunway" class="experience-runway mt-10 hidden md:block">
+      <div class="sticky top-0 flex h-screen items-center overflow-hidden">
+        <div class="absolute top-6 right-[5%] z-20 font-mono text-xs tracking-[0.18em] text-[#737373]">
+          <span ref="counterRef">01</span><span class="text-[#444444]"> / {{ String(experienceEntries.length).padStart(2, '0') }}</span>
+        </div>
+        <div class="absolute right-[5%] bottom-6 left-[5%] z-20 h-px bg-[#333333]">
+          <div ref="progressRef" class="h-full origin-left scale-x-0 bg-[#8a8a8a]" />
+        </div>
 
-      <div
-        ref="shellRef"
-        class="experience-modal-shell invisible fixed z-[101] rounded-[1.75rem] opacity-0 shadow-[0_40px_100px_-24px_rgba(0,0,0,0.65)] will-change-transform"
-        :class="isModalOpen ? 'pointer-events-auto' : 'pointer-events-none'"
-        data-lenis-prevent
-        style="perspective: 1200px"
-        role="dialog"
-        aria-modal="true"
-        :aria-hidden="!isModalOpen"
-        :aria-label="selectedEntry ? `${selectedEntry.company} experience details` : undefined"
-        @click.stop
-      >
-        <div ref="flipRef" class="w-full" style="transform-style: preserve-3d">
-          <ExperienceDetailModal
-            v-if="selectedEntry"
-            :entry="selectedEntry"
-            :show-back-face="showBackFace"
-            @close="closeModal"
-          />
+        <div class="relative flex h-full w-full items-center overflow-hidden">
+          <article
+            v-for="(entry, index) in experienceEntries"
+            :key="entry.id"
+            ref="desktopCardRefs"
+            class="absolute right-[5%] left-[5%] h-[68vh] overflow-hidden rounded-2xl border border-[#d4d4d4] bg-[#f4f4f1] text-[#000000]"
+          >
+            <div class="grid h-full grid-cols-[minmax(15rem,1fr)_2fr]">
+              <div class="flex flex-col justify-between border-r border-[#d4d4d4] p-8 lg:p-10">
+                <span class="font-mono text-[11px] tracking-[0.35em] text-[#737373] uppercase">{{ String(index + 1).padStart(2, '0') }}</span>
+                <div class="flex items-center justify-center py-4">
+                  <img v-if="entry.logo" :src="entry.logo" :alt="entry.logoAlt ?? `${entry.company} logo`" class="max-h-20 max-w-52 object-contain object-center grayscale" />
+                  <span v-else class="text-4xl font-bold">{{ entry.company }}</span>
+                </div>
+                <div class="space-y-3">
+                  <p class="m-0 text-[11px] tracking-[0.24em] text-[#5c5c5c] uppercase">{{ entry.period }}</p>
+                  <span class="inline-block rounded-full border border-[#b5b5b5] px-3 py-1 text-[11px] tracking-wide text-[#5c5c5c]">Professional experience</span>
+                </div>
+              </div>
+
+              <div class="flex flex-col justify-between p-8 lg:p-10 xl:p-12">
+                <div class="flex flex-col gap-4">
+                  <p class="m-0 text-[11px] tracking-[0.25em] text-[#737373] uppercase">{{ entry.company }}</p>
+                  <h3 class="m-0 text-[clamp(1.5rem,2.8vw,2.4rem)] leading-[1.05] font-bold tracking-[-0.04em]">{{ entry.role }}</h3>
+                  <ul class="m-0 mt-2 space-y-2 p-0">
+                    <li v-for="highlight in entry.highlights" :key="highlight" class="flex gap-2 text-[clamp(0.78rem,1vw,0.88rem)] leading-[1.6] text-[#5c5c5c]">
+                      <span class="mt-[3px] shrink-0 text-[#8a8a8a]">—</span><span>{{ highlight }}</span>
+                    </li>
+                  </ul>
+                </div>
+                <ul class="m-0 flex list-none flex-wrap gap-2 p-0">
+                  <li v-for="tag in entry.tags" :key="tag" class="rounded-full border border-[#d4d4d4] bg-[#f4f4f1] px-3 py-1.5 text-[11px] tracking-wide text-[#5c5c5c]">{{ tag }}</li>
+                </ul>
+              </div>
+            </div>
+          </article>
         </div>
       </div>
-    </Teleport>
+    </div>
   </section>
 </template>
+
+<style scoped>
+@media (min-width: 768px) and (prefers-reduced-motion: reduce) {
+  .experience-mobile {
+    display: block;
+    padding-bottom: 5rem;
+  }
+
+  .experience-runway {
+    display: none;
+  }
+}
+</style>

@@ -38,7 +38,7 @@ useHeroImageReveal(imageContainerRef, revealImageRef)
 
 <template>
   <section
-    class="hero-section relative flex h-full min-h-0 w-full touch-pan-y flex-col overflow-hidden bg-white md:block"
+    class="hero-section relative flex h-full min-h-0 w-full touch-pan-y flex-col overflow-hidden bg-[#f4f4f1] md:block"
   >
     <div
       class="hero-names relative z-0 flex shrink-0 flex-col items-start px-4 pt-[4%] sm:px-6 sm:pt-[7%] md:absolute md:inset-x-0 md:top-[11%] md:w-full md:flex-row md:items-end md:justify-between md:gap-0 md:px-12 md:pt-0 lg:px-20"
@@ -53,11 +53,11 @@ useHeroImageReveal(imageContainerRef, revealImageRef)
         >
           IZUCHUKWU
         </span>
-        <span class="relative text-white">IZUCHUKWU</span>
+        <span class="relative text-[#f4f4f1]">IZUCHUKWU</span>
       </span>
       <span
         ref="solidRef"
-        class="hero-name block w-full font-sans font-bold tracking-[-0.02em] text-gray-900 uppercase md:ml-0 md:inline-block md:w-auto md:tracking-normal"
+        class="hero-name block w-full font-sans font-bold tracking-[-0.02em] text-black uppercase md:ml-0 md:inline-block md:w-auto md:tracking-normal"
       >
         TONY
       </span>
@@ -69,7 +69,7 @@ useHeroImageReveal(imageContainerRef, revealImageRef)
     >
       <p
         ref="roleTitleRef"
-        class="hero-role-title m-0 font-semibold tracking-tight text-gray-900"
+        class="hero-role-title m-0 font-semibold tracking-tight text-black"
         aria-label="Software Engineer"
       >
         <span
@@ -87,7 +87,7 @@ useHeroImageReveal(imageContainerRef, revealImageRef)
       </p>
       <RouterLink
         :to="{ path: '/', hash: '#services' }"
-        class="mt-4 inline-flex min-h-12 items-center justify-center rounded-full bg-gray-900 px-6 py-3 text-sm font-medium text-white no-underline transition-colors hover:bg-gray-800 md:text-base"
+        class="mt-4 inline-flex min-h-12 items-center justify-center rounded-full bg-black px-6 py-3 text-sm font-medium text-[#f4f4f1] no-underline transition-colors hover:bg-black/85 md:text-base"
       >
         Learn more
       </RouterLink>
@@ -153,12 +153,12 @@ useHeroImageReveal(imageContainerRef, revealImageRef)
 }
 
 .hero-name-stroke {
-  -webkit-text-stroke: 2.5px #111827;
+  -webkit-text-stroke: 2.5px #000000;
 }
 
 @media (min-width: 768px) {
   .hero-name-stroke {
-    -webkit-text-stroke: 4px #111827;
+    -webkit-text-stroke: 4px #000000;
   }
 }
 

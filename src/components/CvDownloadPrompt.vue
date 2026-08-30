@@ -60,12 +60,12 @@ onUnmounted(() => {
       <div
         v-if="isOpen"
         id="cv-download-panel"
-        class="relative mb-2 w-[min(18rem,calc(100vw-6.5rem))] rounded-2xl border border-black/10 bg-white p-4 pr-10 text-gray-900 shadow-[0_16px_45px_rgba(0,0,0,0.18)] sm:w-72 sm:p-5 sm:pr-11"
+        class="relative mb-2 w-[min(18rem,calc(100vw-6.5rem))] rounded-2xl border border-black/10 bg-[#f4f4f1] p-4 pr-10 text-black shadow-[0_16px_45px_rgba(0,0,0,0.18)] sm:w-72 sm:p-5 sm:pr-11"
       >
         <button
           type="button"
           aria-label="Close CV prompt"
-          class="absolute top-2.5 right-2.5 inline-flex size-8 items-center justify-center rounded-full text-gray-500 transition-colors hover:bg-gray-100 hover:text-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black"
+          class="absolute top-2.5 right-2.5 inline-flex size-8 items-center justify-center rounded-full text-black/50 transition-colors hover:bg-black/5 hover:text-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black"
           @click="isOpen = false"
         >
           <svg class="size-4" viewBox="0 0 16 16" fill="none" aria-hidden="true">
@@ -77,7 +77,7 @@ onUnmounted(() => {
         <a
           href="/Izuchukwu-CV.pdf"
           download
-          class="mt-2 inline-flex items-center gap-2 text-sm font-medium text-gray-600 underline decoration-gray-300 underline-offset-4 transition-colors hover:text-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black sm:text-base"
+          class="mt-2 inline-flex items-center gap-2 text-sm font-medium text-black/60 underline decoration-gray-300 underline-offset-4 transition-colors hover:text-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black sm:text-base"
         >
           Download my CV
           <svg class="size-4" viewBox="0 0 16 16" fill="none" aria-hidden="true">
@@ -88,13 +88,13 @@ onUnmounted(() => {
     </Transition>
 
     <div class="relative shrink-0">
-      <span class="absolute -top-0.5 -left-0.5 z-10 size-4 rounded-full border-2 border-white bg-red-600" aria-hidden="true" />
+      <span class="absolute -top-0.5 -left-0.5 z-10 size-4 rounded-full border-2 border-[#f4f4f1] bg-black" aria-hidden="true" />
       <button
         type="button"
         aria-label="Open CV download"
         :aria-expanded="isOpen"
         aria-controls="cv-download-panel"
-        class="inline-flex size-14 items-center justify-center rounded-full bg-black text-white shadow-[0_12px_30px_rgba(0,0,0,0.25)] transition-transform hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2 sm:size-16"
+        class="inline-flex size-14 items-center justify-center rounded-full bg-black text-[#f4f4f1] shadow-[0_12px_30px_rgba(0,0,0,0.25)] transition-transform hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2 sm:size-16"
         @click="togglePrompt"
       >
         <svg class="size-6 sm:size-7" viewBox="0 0 24 24" fill="none" aria-hidden="true">

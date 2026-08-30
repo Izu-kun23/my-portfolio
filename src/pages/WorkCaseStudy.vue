@@ -61,7 +61,7 @@ onMounted(() => {
   <main
     v-if="caseStudy"
     :key="caseStudy.id"
-    class="min-h-dvh bg-white px-4 pb-[calc(3rem+env(safe-area-inset-bottom))] pt-[calc(5rem+env(safe-area-inset-top))] sm:px-6 md:px-12 lg:px-20"
+    class="min-h-dvh bg-[#f4f4f1] px-4 pb-[calc(3rem+env(safe-area-inset-bottom))] pt-[calc(5rem+env(safe-area-inset-top))] sm:px-6 md:px-12 lg:px-20"
   >
     <div class="mx-auto w-full max-w-5xl">
       <motion.div
@@ -71,7 +71,7 @@ onMounted(() => {
       >
         <RouterLink
           to="/"
-          class="inline-flex items-center gap-2 text-sm font-medium text-gray-600 transition-colors hover:text-gray-900"
+          class="inline-flex items-center gap-2 text-sm font-medium text-black/60 transition-colors hover:text-black"
         >
           <svg viewBox="0 0 24 24" class="h-4 w-4 fill-none stroke-current stroke-2">
             <path d="M15 18l-6-6 6-6" stroke-linecap="round" stroke-linejoin="round" />
@@ -81,7 +81,7 @@ onMounted(() => {
       </motion.div>
 
       <motion.p
-        class="m-0 mt-8 font-mono text-[0.65rem] tracking-[0.18em] text-gray-400 uppercase"
+        class="m-0 mt-8 font-mono text-[0.65rem] tracking-[0.18em] text-black/40 uppercase"
         :initial="fadeUpInitial"
         :animate="fadeUpAnimate"
         :transition="fadeUpTransition(0.08)"
@@ -91,7 +91,7 @@ onMounted(() => {
 
       <div class="mt-3 flex flex-wrap items-start justify-between gap-4 sm:gap-6">
         <motion.h1
-          class="m-0 min-w-0 flex-1 text-[clamp(2rem,5.5vw,3.25rem)] leading-[1.05] font-bold tracking-tight text-gray-900 uppercase"
+          class="m-0 min-w-0 flex-1 text-[clamp(2rem,5.5vw,3.25rem)] leading-[1.05] font-bold tracking-tight text-black uppercase"
           :initial="titleInitial"
           :animate="titleAnimate"
           :transition="titleTransition"
@@ -102,7 +102,7 @@ onMounted(() => {
         <motion.a
           v-if="caseStudy.liveUrl"
           :href="caseStudy.liveUrl"
-          class="inline-flex shrink-0 items-center gap-2 rounded-full border border-gray-300 px-5 py-2.5 text-sm font-medium text-gray-900 transition-colors hover:border-gray-900 sm:ml-auto"
+          class="inline-flex shrink-0 items-center gap-2 rounded-full border border-black/30 px-5 py-2.5 text-sm font-medium text-black transition-colors hover:border-black sm:ml-auto"
           :target="caseStudy.liveUrl === '#' ? undefined : '_blank'"
           :rel="caseStudy.liveUrl === '#' ? undefined : 'noopener noreferrer'"
           :initial="fadeUpInitial"
@@ -138,8 +138,8 @@ onMounted(() => {
             class="inline-flex rounded-full px-3 py-1 text-xs font-medium tracking-wide uppercase"
             :class="
               tag.filled
-                ? 'bg-gray-900 text-white'
-                : 'border border-gray-300 text-gray-700'
+                ? 'bg-black text-[#f4f4f1]'
+                : 'border border-black/30 text-black/70'
             "
           >
             {{ tag.label }}
@@ -148,7 +148,7 @@ onMounted(() => {
       </motion.ul>
 
       <motion.dl
-        class="mt-10 grid gap-6 border-y border-gray-200 py-6 text-sm sm:grid-cols-2 lg:grid-cols-4"
+        class="mt-10 grid gap-6 border-y border-black/15 py-6 text-sm sm:grid-cols-2 lg:grid-cols-4"
         :initial="prefersReducedMotion ? false : { opacity: 0, y: 24 }"
         :animate="{ opacity: 1, y: 0 }"
         :transition="fadeUpTransition(0.28)"
@@ -169,13 +169,13 @@ onMounted(() => {
               : { duration: 0.48, ease: enterEase, delay: 0.32 + index * 0.06 }
           "
         >
-          <dt class="m-0 text-xs tracking-wide text-gray-400 uppercase">{{ item.label }}</dt>
-          <dd class="m-0 mt-1 font-medium text-gray-900">{{ item.value }}</dd>
+          <dt class="m-0 text-xs tracking-wide text-black/40 uppercase">{{ item.label }}</dt>
+          <dd class="m-0 mt-1 font-medium text-black">{{ item.value }}</dd>
         </motion.div>
       </motion.dl>
 
       <motion.p
-        class="m-0 mt-10 max-w-3xl text-lg leading-relaxed text-gray-700"
+        class="m-0 mt-10 max-w-3xl text-lg leading-relaxed text-black/70"
         :initial="fadeUpInitial"
         :animate="fadeUpAnimate"
         :transition="fadeUpTransition(0.38)"
@@ -190,10 +190,10 @@ onMounted(() => {
           :in-view-options="inViewOptions"
           :transition="inViewTransition"
         >
-          <h2 class="m-0 text-sm font-semibold tracking-wide text-gray-900 uppercase">
+          <h2 class="m-0 text-sm font-semibold tracking-wide text-black uppercase">
             The challenge
           </h2>
-          <p class="m-0 mt-3 text-base leading-relaxed text-gray-600">
+          <p class="m-0 mt-3 text-base leading-relaxed text-black/60">
             {{ caseStudy.challenge }}
           </p>
         </motion.div>
@@ -208,10 +208,10 @@ onMounted(() => {
               : { duration: 0.68, ease: enterEase, delay: 0.08 }
           "
         >
-          <h2 class="m-0 text-sm font-semibold tracking-wide text-gray-900 uppercase">
+          <h2 class="m-0 text-sm font-semibold tracking-wide text-black uppercase">
             The solution
           </h2>
-          <p class="m-0 mt-3 text-base leading-relaxed text-gray-600">
+          <p class="m-0 mt-3 text-base leading-relaxed text-black/60">
             {{ caseStudy.solution }}
           </p>
         </motion.div>
@@ -219,7 +219,7 @@ onMounted(() => {
 
       <section class="mt-12">
         <motion.h2
-          class="m-0 text-sm font-semibold tracking-wide text-gray-900 uppercase"
+          class="m-0 text-sm font-semibold tracking-wide text-black uppercase"
           :initial="inViewInitial"
           :while-in-view="inViewAnimate"
           :in-view-options="inViewOptions"
@@ -232,7 +232,7 @@ onMounted(() => {
           <motion.figure
             v-for="(item, index) in caseStudy.gallery"
             :key="item.caption"
-            class="m-0 overflow-hidden rounded-2xl border border-gray-200 bg-gray-50"
+            class="m-0 overflow-hidden rounded-2xl border border-black/15 bg-[#f4f4f1]"
             :initial="galleryInitial"
             :while-in-view="galleryAnimate"
             :in-view-options="inViewOptions"
@@ -244,7 +244,7 @@ onMounted(() => {
               class="block w-full object-cover"
               loading="lazy"
             />
-            <figcaption class="border-t border-gray-200 px-4 py-3 text-sm text-gray-600 sm:px-5">
+            <figcaption class="border-t border-black/15 px-4 py-3 text-sm text-black/60 sm:px-5">
               {{ item.caption }}
             </figcaption>
           </motion.figure>
@@ -252,16 +252,16 @@ onMounted(() => {
       </section>
 
       <motion.section
-        class="mt-12 rounded-2xl bg-gray-50 px-5 py-8 sm:px-8"
+        class="mt-12 rounded-2xl bg-[#f4f4f1] px-5 py-8 sm:px-8"
         :initial="inViewInitial"
         :while-in-view="inViewAnimate"
         :in-view-options="inViewOptions"
         :transition="inViewTransition"
       >
-        <h2 class="m-0 text-sm font-semibold tracking-wide text-gray-900 uppercase">
+        <h2 class="m-0 text-sm font-semibold tracking-wide text-black uppercase">
           Outcome
         </h2>
-        <p class="m-0 mt-3 max-w-3xl text-base leading-relaxed text-gray-700">
+        <p class="m-0 mt-3 max-w-3xl text-base leading-relaxed text-black/70">
           {{ caseStudy.outcome }}
         </p>
       </motion.section>
@@ -275,13 +275,13 @@ onMounted(() => {
       >
         <RouterLink
           to="/"
-          class="inline-flex items-center gap-2 rounded-full border border-gray-300 px-5 py-2.5 text-sm font-medium text-gray-900 transition-colors hover:border-gray-900"
+          class="inline-flex items-center gap-2 rounded-full border border-black/30 px-5 py-2.5 text-sm font-medium text-black transition-colors hover:border-black"
         >
           Back to work
         </RouterLink>
         <RouterLink
           to="/#contact"
-          class="inline-flex items-center gap-2 rounded-full bg-gray-900 px-5 py-2.5 text-sm font-medium text-white transition-opacity hover:opacity-85"
+          class="inline-flex items-center gap-2 rounded-full bg-black px-5 py-2.5 text-sm font-medium text-[#f4f4f1] transition-opacity hover:opacity-85"
         >
           Start a project
         </RouterLink>

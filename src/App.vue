@@ -54,7 +54,7 @@ watch(
       <motion.div
         v-if="isCaseStudy"
         key="case-study-overlay"
-        class="case-study-overlay fixed inset-0 z-50 overflow-x-hidden overflow-y-auto bg-white shadow-[-12px_0_40px_rgba(0,0,0,0.08)] will-change-transform"
+        class="case-study-overlay fixed inset-0 z-50 overflow-x-hidden overflow-y-auto bg-[#f4f4f1] shadow-[-12px_0_40px_rgba(0,0,0,0.08)] will-change-transform"
         data-lenis-prevent
         :initial="prefersReducedMotion ? false : { x: '100%' }"
         :animate="{ x: 0 }"

@@ -63,12 +63,12 @@ onUnmounted(() => {
 
 <template>
   <div
-    class="fixed inset-0 z-[60] flex min-h-dvh flex-col overflow-hidden bg-black px-4 py-5 text-white sm:px-6 sm:py-7 md:px-12 lg:px-20"
+    class="fixed inset-0 z-[60] flex min-h-dvh flex-col overflow-hidden bg-black px-4 py-5 text-[#f4f4f1] sm:px-6 sm:py-7 md:px-12 lg:px-20"
     role="status"
     aria-live="polite"
     aria-label="Loading portfolio"
   >
-    <div class="flex items-center justify-between font-mono text-[0.65rem] tracking-[0.16em] text-white/50 uppercase sm:text-xs">
+    <div class="flex items-center justify-between font-mono text-[0.65rem] tracking-[0.16em] text-[#f4f4f1]/50 uppercase sm:text-xs">
       <span>Portfolio</span>
       <span>{{ progress.toString().padStart(3, '0') }}%</span>
     </div>
@@ -84,20 +84,20 @@ onUnmounted(() => {
         />
         <sup
           v-if="!isTyping"
-          class="ml-1 align-top text-[0.13em] leading-none tracking-normal text-white"
+          class="ml-1 align-top text-[0.13em] leading-none tracking-normal text-[#f4f4f1]"
         >TM</sup>
       </p>
       <span class="sr-only">Izuchukwu trademark</span>
     </div>
 
     <div class="w-full" aria-hidden="true">
-      <div class="mb-3 flex justify-between font-mono text-[0.6rem] tracking-[0.14em] text-white/45 uppercase sm:text-[0.68rem]">
+      <div class="mb-3 flex justify-between font-mono text-[0.6rem] tracking-[0.14em] text-[#f4f4f1]/45 uppercase sm:text-[0.68rem]">
         <span>Loading</span>
         <span>United Kingdom</span>
       </div>
-      <div class="h-px w-full bg-white/20">
+      <div class="h-px w-full bg-[#f4f4f1]/20">
         <div
-          class="h-full bg-white transition-[width] duration-150 ease-out motion-reduce:transition-none"
+          class="h-full bg-[#f4f4f1] transition-[width] duration-150 ease-out motion-reduce:transition-none"
           :style="{ width: `${progress}%` }"
         />
       </div>
@@ -115,7 +115,7 @@ onUnmounted(() => {
   color: transparent;
   background-image:
     url("data:image/svg+xml,%3Csvg viewBox='0 0 90 90' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.4' numOctaves='4' stitchTiles='stitch'/%3E%3CfeComponentTransfer%3E%3CfeFuncR type='linear' slope='2.4' intercept='-.65'/%3E%3CfeFuncG type='linear' slope='2.4' intercept='-.65'/%3E%3CfeFuncB type='linear' slope='2.4' intercept='-.65'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),
-    linear-gradient(#fff, #fff);
+    linear-gradient(#f4f4f1, #f4f4f1);
   background-size: 90px 90px, auto;
   background-blend-mode: screen;
   background-clip: text;
@@ -127,7 +127,7 @@ onUnmounted(() => {
   width: 0.055em;
   height: 0.78em;
   margin-left: 0.08em;
-  background: #fff;
+  background: #f4f4f1;
   animation: cursor-blink 600ms steps(1, end) infinite;
 }
 

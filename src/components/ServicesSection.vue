@@ -68,9 +68,9 @@ defineExpose({ reveal: sectionReveal })
           class="relative shrink-0 overflow-hidden px-4 sm:px-6 md:px-0"
           :variants="servicesRevealVariants.headerGroup"
         >
-          <div class="relative z-10 border-b border-gray-300/70 pt-12 pb-8 sm:pt-14 sm:pb-8 md:pt-16 md:pb-10">
+          <div class="relative z-10 border-b border-black/25 pt-12 pb-8 sm:pt-14 sm:pb-8 md:pt-16 md:pb-10">
             <motion.p
-              class="pointer-events-none absolute top-1/2 left-4 m-0 -translate-y-[42%] select-none text-[clamp(3.5rem,12vw,8rem)] leading-none font-bold tracking-tight text-gray-200 uppercase sm:left-6 md:left-0"
+              class="pointer-events-none absolute top-1/2 left-4 m-0 -translate-y-[42%] select-none text-[clamp(3.5rem,12vw,8rem)] leading-none font-bold tracking-tight text-black/20 uppercase sm:left-6 md:left-0"
               aria-hidden="true"
               :variants="servicesRevealVariants.watermark"
             >
@@ -79,7 +79,7 @@ defineExpose({ reveal: sectionReveal })
 
             <div class="relative z-10 flex items-start justify-between gap-4">
               <motion.h2
-                class="m-0 min-w-0 text-[clamp(2rem,5.5vw,2.75rem)] leading-[1.05] font-bold tracking-tight text-gray-900 uppercase"
+                class="m-0 min-w-0 text-[clamp(2rem,5.5vw,2.75rem)] leading-[1.05] font-bold tracking-tight text-black uppercase"
                 :variants="servicesRevealVariants.fadeUp"
               >
                 <MotionScrambleText
@@ -118,7 +118,7 @@ defineExpose({ reveal: sectionReveal })
               <motion.li
                 v-for="service in services"
                 :key="service.id"
-                class="w-full min-w-0 border-b border-gray-300/70 last:border-b-0"
+                class="w-full min-w-0 border-b border-black/25 last:border-b-0"
                 :variants="servicesRevealVariants.listItem"
               >
                 <ServiceAccordionItem
@@ -149,12 +149,12 @@ defineExpose({ reveal: sectionReveal })
 }
 
 .services-cloud-bg {
-  background-color: #f3f4f6;
+  background-color: #f4f4f1;
   background-image:
-    radial-gradient(ellipse 80% 50% at 20% 30%, rgba(255, 255, 255, 0.95) 0%, transparent 70%),
-    radial-gradient(ellipse 60% 40% at 75% 20%, rgba(255, 255, 255, 0.9) 0%, transparent 65%),
-    radial-gradient(ellipse 70% 45% at 50% 70%, rgba(229, 231, 235, 0.8) 0%, transparent 70%),
-    radial-gradient(ellipse 55% 35% at 85% 65%, rgba(255, 255, 255, 0.85) 0%, transparent 60%),
-    linear-gradient(180deg, #f9fafb 0%, #e5e7eb 55%, #f3f4f6 100%);
+    radial-gradient(ellipse 80% 50% at 20% 30%, rgba(244, 244, 241, 0.95) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 40% at 75% 20%, rgba(244, 244, 241, 0.9) 0%, transparent 65%),
+    radial-gradient(ellipse 70% 45% at 50% 70%, rgba(244, 244, 241, 0.8) 0%, transparent 70%),
+    radial-gradient(ellipse 55% 35% at 85% 65%, rgba(244, 244, 241, 0.85) 0%, transparent 60%),
+    linear-gradient(180deg, #f4f4f1 0%, #f4f4f1 55%, #f4f4f1 100%);
 }
 </style>

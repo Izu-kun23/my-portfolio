@@ -21,7 +21,7 @@ export interface UseUnveilScrollOptions {
   sections: UnveilSectionConfig[]
 }
 
-const SECTION_IDS = ['hero', 'services', 'work', 'about', 'contact'] as const
+const SECTION_IDS = ['hero', 'story', 'about', 'work', 'services', 'contact'] as const
 /** Only the hero panel is pinned / stacked. Everything after scrolls normally. */
 const PINNED_PANEL_COUNT = 1
 

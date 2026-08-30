@@ -4,9 +4,10 @@ import { socialLinks } from '@/data/socialLinks'
 
 const footerNavigation = [
   { label: 'Home', href: '#hero' },
-  { label: 'Services', href: '#services' },
+  { label: 'About', href: '#story' },
   { label: 'Work', href: '#work' },
-  { label: 'About', href: '#about' },
+  { label: 'Experience', href: '#about' },
+  { label: 'Capabilities', href: '#services' },
   { label: 'Contact', href: '#contact' },
 ]
 
@@ -14,7 +15,7 @@ const currentYear = new Date().getFullYear()
 </script>
 
 <template>
-  <footer class="site-footer overflow-hidden bg-[#101010] text-white">
+  <footer class="site-footer overflow-hidden bg-[#000000] text-[#f4f4f1]">
     <div class="px-4 pt-12 sm:px-6 sm:pt-16 md:px-12 lg:px-20 lg:pt-20">
       <div class="grid gap-12 md:grid-cols-12 md:gap-x-8 lg:gap-x-12">
         <div class="min-w-0 md:col-span-5 lg:col-span-6">
@@ -26,7 +27,7 @@ const currentYear = new Date().getFullYear()
               target="_blank"
               rel="noopener noreferrer"
               :aria-label="link.label"
-              class="group inline-flex size-12 items-center justify-center rounded-full border border-white/50 text-white transition-colors hover:bg-white hover:text-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#101010] sm:size-14"
+              class="group inline-flex size-12 items-center justify-center rounded-full border border-[#f4f4f1]/50 text-[#f4f4f1] transition-colors hover:bg-[#f4f4f1] hover:text-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f4f4f1] focus-visible:ring-offset-2 focus-visible:ring-offset-[#000000] sm:size-14"
             >
               <svg v-if="link.icon === 'github'" class="size-5" viewBox="0 0 24 24" aria-hidden="true">
                 <path
@@ -43,11 +44,11 @@ const currentYear = new Date().getFullYear()
             </a>
           </nav>
 
-          <address class="mt-8 flex min-w-0 flex-col gap-3 text-sm leading-relaxed not-italic text-white/75 sm:mt-10 sm:text-base">
+          <address class="mt-8 flex min-w-0 flex-col gap-3 text-sm leading-relaxed not-italic text-[#f4f4f1]/75 sm:mt-10 sm:text-base">
             <span>{{ contactDetails.location }}</span>
             <a
               :href="`mailto:${contactDetails.email}`"
-              class="w-fit max-w-full break-all text-white/75 transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+              class="w-fit max-w-full break-all text-[#f4f4f1]/75 transition-colors hover:text-[#f4f4f1] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f4f4f1]"
             >
               {{ contactDetails.email }}
             </a>
@@ -56,12 +57,12 @@ const currentYear = new Date().getFullYear()
 
         <div class="grid grid-cols-2 gap-8 md:col-span-7 lg:col-span-6">
           <nav aria-label="Footer navigation">
-            <p class="m-0 text-xs font-medium tracking-[0.12em] text-white/45 uppercase">Menu</p>
+            <p class="m-0 text-xs font-medium tracking-[0.12em] text-[#f4f4f1]/45 uppercase">Menu</p>
             <ul class="mt-4 space-y-3 text-base sm:text-lg">
               <li v-for="item in footerNavigation" :key="item.label">
                 <a
                   :href="item.href"
-                  class="text-white/75 transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+                  class="text-[#f4f4f1]/75 transition-colors hover:text-[#f4f4f1] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f4f4f1]"
                 >
                   {{ item.label }}
                 </a>
@@ -70,14 +71,14 @@ const currentYear = new Date().getFullYear()
           </nav>
 
           <div>
-            <p class="m-0 text-xs font-medium tracking-[0.12em] text-white/45 uppercase">Connect</p>
+            <p class="m-0 text-xs font-medium tracking-[0.12em] text-[#f4f4f1]/45 uppercase">Connect</p>
             <ul class="mt-4 space-y-3 text-base sm:text-lg">
               <li v-for="link in socialLinks" :key="link.label">
                 <a
                   :href="link.href"
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="text-white/75 transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+                  class="text-[#f4f4f1]/75 transition-colors hover:text-[#f4f4f1] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f4f4f1]"
                 >
                   {{ link.label }}
                 </a>
@@ -85,7 +86,7 @@ const currentYear = new Date().getFullYear()
               <li>
                 <a
                   :href="`mailto:${contactDetails.email}`"
-                  class="text-white/75 transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+                  class="text-[#f4f4f1]/75 transition-colors hover:text-[#f4f4f1] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f4f4f1]"
                 >
                   Email
                 </a>
@@ -95,27 +96,29 @@ const currentYear = new Date().getFullYear()
         </div>
       </div>
 
-      <div class="relative mt-14 border-t border-white/35 sm:mt-20">
+      <div class="relative mt-14 border-t border-[#f4f4f1]/35 sm:mt-20">
         <a
           :href="`mailto:${contactDetails.email}`"
-          class="absolute top-0 right-0 inline-flex min-h-11 -translate-y-1/2 items-center justify-center rounded-full bg-white px-6 text-sm font-medium text-black transition-colors hover:bg-white/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#101010] sm:px-8 sm:text-base"
+          class="absolute top-0 right-0 inline-flex min-h-11 -translate-y-1/2 items-center justify-center rounded-full bg-[#f4f4f1] px-6 text-sm font-medium text-black transition-colors hover:bg-[#f4f4f1]/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f4f4f1] focus-visible:ring-offset-2 focus-visible:ring-offset-[#000000] sm:px-8 sm:text-base"
         >
           Start a project
         </a>
       </div>
 
-      <div class="grid gap-6 pt-12 text-sm text-white/45 sm:grid-cols-2 sm:items-end sm:pt-14 md:grid-cols-12 md:text-base">
+      <div class="grid gap-6 pt-12 text-sm text-[#f4f4f1]/45 sm:grid-cols-2 sm:items-end sm:pt-14 md:grid-cols-12 md:text-base">
         <p class="m-0 max-w-md leading-relaxed sm:col-span-1 md:col-span-6">
-          Designer and developer creating thoughtful digital experiences from concept to launch.
+          Designed and built with care.
         </p>
-        <p class="m-0 sm:text-right md:col-span-3">{{ contactDetails.availability }}</p>
+        <a href="#hero" class="w-fit text-[#f4f4f1]/65 transition-colors hover:text-[#f4f4f1] sm:justify-self-end md:col-span-3">
+          Back to top ↑
+        </a>
         <p class="m-0 sm:text-right md:col-span-3">© {{ currentYear }} {{ contactDetails.name }}</p>
       </div>
     </div>
 
     <div class="mt-10 overflow-hidden px-1 sm:mt-12 sm:px-2 md:mt-14">
       <p
-        class="site-footer__name m-0 translate-y-[0.08em] text-center text-[clamp(3.15rem,14.6vw,14rem)] leading-[0.72] font-bold tracking-[-0.075em] whitespace-nowrap text-[#666] uppercase"
+        class="site-footer__name m-0 translate-y-[0.08em] text-center text-[clamp(3.15rem,14.6vw,14rem)] leading-[0.72] font-bold tracking-[-0.075em] whitespace-nowrap text-[#666666] uppercase"
       >
         Izuchukwu
       </p>

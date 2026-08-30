@@ -7,8 +7,11 @@ import AppMenuSidebar from '@/components/AppMenuSidebar.vue'
 import AppNavbar from '@/components/AppNavbar.vue'
 import ContactSection from '@/components/ContactSection.vue'
 import HeroSection from '@/components/HeroSection.vue'
+import ScrollMarquee from '@/components/ScrollMarquee.vue'
 import ServicesSection from '@/components/ServicesSection.vue'
 import SiteFooter from '@/components/SiteFooter.vue'
+import StorySection from '@/components/story/StorySection.vue'
+import TechnologyMarquee from '@/components/TechnologyMarquee.vue'
 import WorkSection from '@/components/WorkSection.vue'
 import { useHashScroll } from '@/composables/useHashScroll'
 import { unveilActiveIndex, useUnveilScroll } from '@/composables/useUnveilScroll'
@@ -17,6 +20,7 @@ const unveilRootRef = useTemplateRef<HTMLElement>('unveilRootRef')
 const unveilStageRef = useTemplateRef<HTMLElement>('unveilStageRef')
 
 const heroPanelRef = useTemplateRef<HTMLElement>('heroPanelRef')
+const storyPanelRef = useTemplateRef<HTMLElement>('storyPanelRef')
 const servicesPanelRef = useTemplateRef<HTMLElement>('servicesPanelRef')
 const workPanelRef = useTemplateRef<HTMLElement>('workPanelRef')
 const aboutPanelRef = useTemplateRef<HTMLElement>('aboutPanelRef')
@@ -34,10 +38,11 @@ useUnveilScroll({
   stageRef: unveilStageRef,
   sections: [
     { id: 'hero', panelRef: heroPanelRef },
+    { id: 'story', panelRef: storyPanelRef },
     {
-      id: 'services',
-      panelRef: servicesPanelRef,
-      getReveal: () => servicesSectionRef.value?.reveal,
+      id: 'about',
+      panelRef: aboutPanelRef,
+      getReveal: () => aboutSectionRef.value?.reveal,
     },
     {
       id: 'work',
@@ -45,9 +50,9 @@ useUnveilScroll({
       getReveal: () => workSectionRef.value?.reveal,
     },
     {
-      id: 'about',
-      panelRef: aboutPanelRef,
-      getReveal: () => aboutSectionRef.value?.reveal,
+      id: 'services',
+      panelRef: servicesPanelRef,
+      getReveal: () => servicesSectionRef.value?.reveal,
     },
     {
       id: 'contact',
@@ -74,13 +79,19 @@ useHashScroll()
         </div>
       </div>
 
+      <div ref="storyPanelRef" class="unveil-panel unveil-panel--flow relative w-full">
+        <StorySection />
+      </div>
+
       <!-- Remaining sections use normal document flow -->
       <div
-        ref="servicesPanelRef"
-        class="unveil-panel unveil-panel--services unveil-panel--flow relative flex min-h-[100svh] w-full flex-col"
+        ref="aboutPanelRef"
+        class="unveil-panel unveil-panel--about unveil-panel--flow relative w-full"
       >
-        <ServicesSection ref="servicesSectionRef" class="min-h-0 flex-1" />
+        <AboutSection ref="aboutSectionRef" />
       </div>
+
+      <ScrollMarquee />
 
       <div
         ref="workPanelRef"
@@ -89,9 +100,14 @@ useHashScroll()
         <WorkSection ref="workSectionRef" class="flex-1" />
       </div>
 
-      <div ref="aboutPanelRef" class="unveil-panel unveil-panel--about unveil-panel--flow relative w-full">
-        <AboutSection ref="aboutSectionRef" />
+      <div
+        ref="servicesPanelRef"
+        class="unveil-panel unveil-panel--services unveil-panel--flow relative flex min-h-[100svh] w-full flex-col"
+      >
+        <ServicesSection ref="servicesSectionRef" class="min-h-0 flex-1" />
       </div>
+
+      <TechnologyMarquee />
 
       <div
         ref="contactPanelRef"

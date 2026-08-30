@@ -63,7 +63,7 @@ function drawArtworkOnScreen(
   if (baseImage) {
     ctx.drawImage(baseImage, 0, 0, width, height)
   } else {
-    ctx.fillStyle = '#111111'
+    ctx.fillStyle = '#000000'
     ctx.fillRect(0, 0, width, height)
   }
 

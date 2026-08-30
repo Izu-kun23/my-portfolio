@@ -10,7 +10,7 @@ defineSlots<{
 
 <template>
   <article
-    class="scroll-stack-card relative my-8 w-full origin-top overflow-hidden rounded-[2rem] bg-transparent p-0 shadow-[0_18px_60px_rgba(15,23,42,0.12)]"
+    class="scroll-stack-card relative my-8 w-full origin-top overflow-hidden rounded-[2rem] bg-transparent p-0 shadow-[0_18px_60px_rgba(0, 0, 0,0.12)]"
     :class="itemClass"
   >
     <slot />

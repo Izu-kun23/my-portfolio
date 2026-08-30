@@ -36,7 +36,7 @@ function handleNavClick(to: RouteLocationRaw, event: MouseEvent) {
       :aria-hidden="!isOpen"
     >
       <div
-        class="absolute inset-0 bg-white"
+        class="absolute inset-0 bg-[#f4f4f1]"
         @click="closeMenu"
       />
 
@@ -61,7 +61,7 @@ function handleNavClick(to: RouteLocationRaw, event: MouseEvent) {
 
           <button
             type="button"
-            class="flex size-12 cursor-pointer items-center justify-center rounded-full border border-gray-200 bg-transparent text-gray-900 transition-colors hover:bg-gray-100"
+            class="flex size-12 cursor-pointer items-center justify-center rounded-full border border-black/15 bg-transparent text-black transition-colors hover:bg-black/5"
             aria-label="Close menu"
             @click="closeMenu"
           >
@@ -81,7 +81,7 @@ function handleNavClick(to: RouteLocationRaw, event: MouseEvent) {
             v-for="link in links"
             :key="link.label"
             :to="link.to"
-            class="text-[clamp(2rem,6vw,4.5rem)] leading-[1.1] font-semibold tracking-tight text-gray-900 no-underline transition-opacity hover:opacity-60 router-link-active:opacity-60"
+            class="text-[clamp(2rem,6vw,4.5rem)] leading-[1.1] font-semibold tracking-tight text-black no-underline transition-opacity hover:opacity-60 router-link-active:opacity-60"
             @click="handleNavClick(link.to, $event)"
           >
             {{ link.label }}
@@ -90,7 +90,7 @@ function handleNavClick(to: RouteLocationRaw, event: MouseEvent) {
 
         <RouterLink
           :to="collaborateLink.to"
-          class="inline-flex w-fit items-center gap-2 rounded-full bg-gray-900 px-6 py-3.5 text-base font-medium text-white no-underline transition-colors hover:bg-gray-800 md:text-lg"
+          class="inline-flex w-fit items-center gap-2 rounded-full bg-black px-6 py-3.5 text-base font-medium text-[#f4f4f1] no-underline transition-colors hover:bg-black/85 md:text-lg"
           @click="handleNavClick(collaborateLink.to, $event)"
         >
           <span>{{ collaborateLink.label }}</span>

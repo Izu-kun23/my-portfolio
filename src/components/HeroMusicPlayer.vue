@@ -190,10 +190,10 @@ onUnmounted(() => {
       </div>
 
       <div class="mt-4 min-w-0">
-        <p class="truncate text-sm font-semibold tracking-tight text-slate-700">
+        <p class="truncate text-sm font-semibold tracking-tight text-black/70">
           {{ currentTrack.title }}
         </p>
-        <p class="mt-0.5 truncate text-xs text-slate-500">
+        <p class="mt-0.5 truncate text-xs text-black/50">
           {{ currentTrack.artist }}
         </p>
       </div>
@@ -271,42 +271,42 @@ onUnmounted(() => {
 .mp3-player__card {
   background: linear-gradient(
     155deg,
-    rgb(255 255 255 / 0.34) 0%,
-    rgb(226 232 240 / 0.14) 42%,
-    rgb(203 213 225 / 0.1) 100%
+    rgb(244 244 241 / 0.34) 0%,
+    rgb(244 244 241 / 0.14) 42%,
+    rgb(244 244 241 / 0.1) 100%
   );
   backdrop-filter: blur(36px) saturate(115%) brightness(1.06);
   -webkit-backdrop-filter: blur(36px) saturate(115%) brightness(1.06);
-  border: 1px solid rgb(148 163 184 / 0.45);
+  border: 1px solid rgb(128 128 128 / 0.45);
   box-shadow:
-    0 18px 50px rgb(15 23 42 / 0.1),
-    inset 0 0 0 1px rgb(255 255 255 / 0.55),
-    inset 0 1px 1px rgb(255 255 255 / 0.82),
-    inset 0 -1px 1px rgb(148 163 184 / 0.22);
+    0 18px 50px rgb(0 0 0 / 0.1),
+    inset 0 0 0 1px rgb(244 244 241 / 0.55),
+    inset 0 1px 1px rgb(244 244 241 / 0.82),
+    inset 0 -1px 1px rgb(128 128 128 / 0.22);
 }
 
 .mp3-player__art {
-  border: 1px solid rgb(148 163 184 / 0.4);
+  border: 1px solid rgb(128 128 128 / 0.4);
   box-shadow:
-    0 6px 20px rgb(15 23 42 / 0.08),
-    inset 0 0 0 1px rgb(255 255 255 / 0.45);
+    0 6px 20px rgb(0 0 0 / 0.08),
+    inset 0 0 0 1px rgb(244 244 241 / 0.45);
 }
 
 .mp3-player__progress {
   background: linear-gradient(
     180deg,
-    rgb(255 255 255 / 0.22) 0%,
-    rgb(226 232 240 / 0.12) 100%
+    rgb(244 244 241 / 0.22) 0%,
+    rgb(244 244 241 / 0.12) 100%
   );
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
-  border: 1px solid rgb(148 163 184 / 0.38);
-  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.35);
+  border: 1px solid rgb(128 128 128 / 0.38);
+  box-shadow: inset 0 0 0 1px rgb(244 244 241 / 0.35);
 }
 
 .mp3-player__progress-fill {
-  background: linear-gradient(90deg, rgb(100 116 139 / 0.85), rgb(148 163 184 / 0.95));
-  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.35);
+  background: linear-gradient(90deg, rgb(96 96 96 / 0.85), rgb(128 128 128 / 0.95));
+  box-shadow: inset 0 1px 0 rgb(244 244 241 / 0.35);
 }
 
 .mp3-player__btn {
@@ -315,20 +315,20 @@ onUnmounted(() => {
   justify-content: center;
   width: 2.5rem;
   height: 2.5rem;
-  border: 1px solid rgb(148 163 184 / 0.42);
+  border: 1px solid rgb(128 128 128 / 0.42);
   border-radius: 9999px;
   background: linear-gradient(
     165deg,
-    rgb(255 255 255 / 0.34) 0%,
-    rgb(226 232 240 / 0.16) 100%
+    rgb(244 244 241 / 0.34) 0%,
+    rgb(244 244 241 / 0.16) 100%
   );
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  color: #475569;
+  color: #555555;
   box-shadow:
-    0 2px 12px rgb(15 23 42 / 0.07),
-    inset 0 0 0 1px rgb(255 255 255 / 0.5),
-    inset 0 1px 0 rgb(255 255 255 / 0.72);
+    0 2px 12px rgb(0 0 0 / 0.07),
+    inset 0 0 0 1px rgb(244 244 241 / 0.5),
+    inset 0 1px 0 rgb(244 244 241 / 0.72);
   transition:
     background 0.15s ease,
     color 0.15s ease,
@@ -340,15 +340,15 @@ onUnmounted(() => {
 .mp3-player__btn:hover:not(:disabled) {
   background: linear-gradient(
     165deg,
-    rgb(255 255 255 / 0.48) 0%,
-    rgb(241 245 249 / 0.28) 100%
+    rgb(244 244 241 / 0.48) 0%,
+    rgb(244 244 241 / 0.28) 100%
   );
-  color: #334155;
-  border-color: rgb(100 116 139 / 0.5);
+  color: #333333;
+  border-color: rgb(96 96 96 / 0.5);
   box-shadow:
-    0 4px 16px rgb(15 23 42 / 0.1),
-    inset 0 0 0 1px rgb(255 255 255 / 0.62),
-    inset 0 1px 0 rgb(255 255 255 / 0.85);
+    0 4px 16px rgb(0 0 0 / 0.1),
+    inset 0 0 0 1px rgb(244 244 241 / 0.62),
+    inset 0 1px 0 rgb(244 244 241 / 0.85);
   transform: translateY(-1px);
 }
 

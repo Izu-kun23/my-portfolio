@@ -64,10 +64,10 @@ export function useHeroImageReveal(
 
     const drawWisp = (x: number, y: number) => {
       const gradient = ctx.createRadialGradient(x, y, 0, x, y, brushSize)
-      gradient.addColorStop(0, 'rgba(255,255,255,0.92)')
-      gradient.addColorStop(0.25, 'rgba(255,255,255,0.55)')
-      gradient.addColorStop(0.55, 'rgba(255,255,255,0.18)')
-      gradient.addColorStop(1, 'rgba(255,255,255,0)')
+      gradient.addColorStop(0, 'rgba(244, 244, 241,0.92)')
+      gradient.addColorStop(0.25, 'rgba(244, 244, 241,0.55)')
+      gradient.addColorStop(0.55, 'rgba(244, 244, 241,0.18)')
+      gradient.addColorStop(1, 'rgba(244, 244, 241,0)')
 
       ctx.globalCompositeOperation = 'source-over'
       ctx.fillStyle = gradient

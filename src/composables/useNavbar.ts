@@ -13,9 +13,10 @@ const isOpen = ref(false)
 let listenersBound = false
 
 const links: NavLink[] = [
-  { label: 'Services', to: { path: '/', hash: '#services' } },
+  { label: 'About', to: { path: '/', hash: '#story' } },
   { label: 'Work', to: { path: '/', hash: '#work' } },
   { label: 'Experience', to: { path: '/', hash: '#experience' } },
+  { label: 'Capabilities', to: { path: '/', hash: '#services' } },
   { label: 'Contact', to: { path: '/', hash: '#contact' } },
 ]
 

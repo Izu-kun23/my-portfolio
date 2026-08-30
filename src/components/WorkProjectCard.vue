@@ -11,8 +11,8 @@ defineProps<{
 
 <template>
   <article
-    class="work-project-card group relative w-full overflow-hidden rounded-[2rem] bg-gray-100 shadow-[0_18px_55px_rgba(15,23,42,0.16)] focus-within:ring-2 focus-within:ring-gray-900 focus-within:ring-offset-4"
-    :class="project.id === 'kentoks-kitchen' ? 'bg-[#f8ebe4]' : 'bg-gray-100'"
+    class="work-project-card group relative w-full overflow-hidden rounded-[2rem] bg-black/5 shadow-[0_18px_55px_rgba(0, 0, 0,0.16)] focus-within:ring-2 focus-within:ring-black focus-within:ring-offset-4"
+    :class="project.id === 'kentoks-kitchen' ? 'bg-[#f4f4f1]' : 'bg-black/5'"
   >
     <img
       :src="project.image"
@@ -28,9 +28,9 @@ defineProps<{
     />
 
     <div
-      class="absolute inset-x-0 bottom-0 z-10 translate-y-0 p-4 text-white opacity-100 transition-[transform,opacity] duration-500 ease-out sm:p-6 md:translate-y-8 md:p-7 md:opacity-0 md:group-hover:translate-y-0 md:group-hover:opacity-100 md:group-focus-within:translate-y-0 md:group-focus-within:opacity-100 motion-reduce:transition-none"
+      class="absolute inset-x-0 bottom-0 z-10 translate-y-0 p-4 text-[#f4f4f1] opacity-100 transition-[transform,opacity] duration-500 ease-out sm:p-6 md:translate-y-8 md:p-7 md:opacity-0 md:group-hover:translate-y-0 md:group-hover:opacity-100 md:group-focus-within:translate-y-0 md:group-focus-within:opacity-100 motion-reduce:transition-none"
     >
-      <p class="m-0 text-[0.65rem] font-medium tracking-[0.12em] text-white/65 uppercase sm:text-xs">
+      <p class="m-0 text-[0.65rem] font-medium tracking-[0.12em] text-[#f4f4f1]/65 uppercase sm:text-xs">
         {{ project.category }} · {{ project.year }}
       </p>
 
@@ -40,7 +40,7 @@ defineProps<{
 
       <ul class="m-0 mt-3 hidden list-none flex-wrap gap-1.5 p-0 sm:flex">
         <li v-for="tag in project.tags" :key="tag.label">
-          <span class="inline-flex rounded-full border border-white/35 bg-black/15 px-2.5 py-1 text-[0.65rem] font-medium tracking-wide text-white backdrop-blur-sm uppercase">
+          <span class="inline-flex rounded-full border border-[#f4f4f1]/35 bg-black/15 px-2.5 py-1 text-[0.65rem] font-medium tracking-wide text-[#f4f4f1] backdrop-blur-sm uppercase">
             {{ tag.label }}
           </span>
         </li>
@@ -50,7 +50,7 @@ defineProps<{
       <RouterLink
         v-if="isInternalWorkPath(project.caseStudyUrl)"
         :to="project.caseStudyUrl!"
-        class="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-xs font-medium text-gray-950 transition-colors hover:bg-white/85 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white sm:px-5 sm:py-2.5 sm:text-sm"
+        class="inline-flex items-center gap-2 rounded-full bg-[#f4f4f1] px-4 py-2 text-xs font-medium text-black transition-colors hover:bg-[#f4f4f1]/85 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f4f4f1] sm:px-5 sm:py-2.5 sm:text-sm"
         @click="beginCaseStudyNavigation"
       >
         View Case Study
@@ -61,7 +61,7 @@ defineProps<{
       <a
         v-else-if="project.caseStudyUrl && project.caseStudyUrl !== '#'"
         :href="project.caseStudyUrl"
-        class="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-xs font-medium text-gray-950 transition-colors hover:bg-white/85 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white sm:px-5 sm:py-2.5 sm:text-sm"
+        class="inline-flex items-center gap-2 rounded-full bg-[#f4f4f1] px-4 py-2 text-xs font-medium text-black transition-colors hover:bg-[#f4f4f1]/85 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f4f4f1] sm:px-5 sm:py-2.5 sm:text-sm"
         target="_blank"
         rel="noopener noreferrer"
       >
@@ -74,7 +74,7 @@ defineProps<{
       <a
         v-if="project.liveUrl && project.liveUrl !== '#'"
         :href="project.liveUrl"
-        class="inline-flex items-center gap-2 rounded-full border border-white/45 bg-black/15 px-4 py-2 text-xs font-medium text-white backdrop-blur-sm transition-colors hover:border-white hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white sm:px-5 sm:py-2.5 sm:text-sm"
+        class="inline-flex items-center gap-2 rounded-full border border-[#f4f4f1]/45 bg-black/15 px-4 py-2 text-xs font-medium text-[#f4f4f1] backdrop-blur-sm transition-colors hover:border-[#f4f4f1] hover:bg-[#f4f4f1]/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f4f4f1] sm:px-5 sm:py-2.5 sm:text-sm"
         target="_blank"
         rel="noopener noreferrer"
       >

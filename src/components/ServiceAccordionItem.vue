@@ -63,13 +63,13 @@ const layoutTransition = computed(() =>
         @click="emit('toggle')"
       >
         <span
-          class="min-w-0 flex-1 font-sans text-[clamp(1.125rem,2.8vw,2rem)] leading-[1.1] font-bold tracking-tight text-gray-900 uppercase"
+          class="min-w-0 flex-1 font-sans text-[clamp(1.125rem,2.8vw,2rem)] leading-[1.1] font-bold tracking-tight text-black uppercase"
         >
           {{ service.label }}
         </span>
         <span
           aria-hidden="true"
-          class="inline-flex h-10 w-10 shrink-0 items-center justify-center text-gray-900 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+          class="inline-flex h-10 w-10 shrink-0 items-center justify-center text-black transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
         >
           <svg viewBox="0 0 24 24" class="h-5 w-5 fill-none stroke-current stroke-2">
             <path d="M7 17L17 7" stroke-linecap="round" />
@@ -89,7 +89,7 @@ const layoutTransition = computed(() =>
         :transition="panelTransition"
       >
         <motion.div
-          class="relative mx-4 touch-pan-y rounded-2xl bg-[#1c1c1c] px-6 py-7 shadow-[0_18px_50px_rgba(0,0,0,0.18)] sm:mx-6 md:mx-0 md:px-10 md:py-9"
+          class="relative mx-4 touch-pan-y rounded-2xl bg-[#000000] px-6 py-7 shadow-[0_18px_50px_rgba(0,0,0,0.18)] sm:mx-6 md:mx-0 md:px-10 md:py-9"
           :initial="{ scale: 0.97, y: 12 }"
           :animate="{ scale: 1, y: 0 }"
           :exit="{ scale: 0.98, y: 8 }"
@@ -98,7 +98,7 @@ const layoutTransition = computed(() =>
           <motion.img
             :src="service.image"
             :alt="service.imageAlt"
-            class="pointer-events-none absolute -top-10 right-4 z-10 hidden h-36 w-auto max-w-[42%] rounded-lg border border-white/20 bg-white object-cover shadow-[0_20px_40px_rgba(0,0,0,0.35)] md:block md:-top-14 md:right-10 md:h-44 lg:h-52"
+            class="pointer-events-none absolute -top-10 right-4 z-10 hidden h-36 w-auto max-w-[42%] rounded-lg border border-[#f4f4f1]/20 bg-[#f4f4f1] object-cover shadow-[0_20px_40px_rgba(0,0,0,0.35)] md:block md:-top-14 md:right-10 md:h-44 lg:h-52"
             :initial="{ opacity: 0, y: 28, rotate: -4 }"
             :animate="{ opacity: 1, y: 0, rotate: -8 }"
             :exit="{ opacity: 0, y: -10, rotate: -4 }"
@@ -107,13 +107,13 @@ const layoutTransition = computed(() =>
 
           <div class="relative z-20 flex items-start justify-between gap-6">
             <span
-              class="font-sans text-[clamp(1.25rem,3.2vw,2.25rem)] leading-[1.08] font-bold tracking-tight text-white uppercase"
+              class="font-sans text-[clamp(1.25rem,3.2vw,2.25rem)] leading-[1.08] font-bold tracking-tight text-[#f4f4f1] uppercase"
             >
               {{ service.label }}
             </span>
             <button
               type="button"
-              class="inline-flex h-10 w-10 shrink-0 items-center justify-center text-white transition-opacity hover:opacity-70"
+              class="inline-flex h-10 w-10 shrink-0 items-center justify-center text-[#f4f4f1] transition-opacity hover:opacity-70"
               aria-label="Close service details"
               @click="emit('toggle')"
             >
@@ -130,7 +130,7 @@ const layoutTransition = computed(() =>
             :exit="{ opacity: 0, y: -8 }"
             :transition="contentTransition"
           >
-            <p class="m-0 text-sm leading-relaxed text-white/75 md:text-base">
+            <p class="m-0 text-sm leading-relaxed text-[#f4f4f1]/75 md:text-base">
               {{ service.description }}
             </p>
           </motion.div>

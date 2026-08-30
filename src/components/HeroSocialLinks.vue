@@ -12,7 +12,7 @@ import { socialLinks } from '@/data/socialLinks'
       :href="link.href"
       target="_blank"
       rel="noopener noreferrer"
-      class="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-gray-200 bg-white/90 px-4 py-2.5 text-sm font-medium whitespace-nowrap text-gray-900 no-underline backdrop-blur-sm transition-[background,border-color,color,transform] duration-200 hover:-translate-x-0.5 hover:border-gray-900 hover:bg-gray-900 hover:text-white sm:px-5"
+      class="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-black/15 bg-[#f4f4f1]/90 px-4 py-2.5 text-sm font-medium whitespace-nowrap text-black no-underline backdrop-blur-sm transition-[background,border-color,color,transform] duration-200 hover:-translate-x-0.5 hover:border-black hover:bg-black hover:text-[#f4f4f1] sm:px-5"
     >
       <svg
         v-if="link.icon === 'github'"
