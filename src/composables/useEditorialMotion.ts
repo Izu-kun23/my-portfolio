@@ -24,8 +24,7 @@ export function useEditorialMotion(rootRef: Ref<HTMLElement | null>) {
           duration: 1.1,
           stagger: 0.07,
         }, 0.08)
-        .from('[data-hero-word]', { yPercent: 112, duration: 1.05 }, 0.18)
-        .from('[data-hero-meta]', { y: 24, autoAlpha: 0, duration: 0.75, stagger: 0.08 }, 0.62)
+        .from('[data-hero-meta]', { y: 24, autoAlpha: 0, duration: 0.75, stagger: 0.08 }, 0.28)
 
       gsap.utils.toArray<HTMLElement>('[data-reveal]').forEach((element) => {
         gsap.from(element, {
