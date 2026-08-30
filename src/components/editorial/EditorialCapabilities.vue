@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { shallowRef } from 'vue'
-import mobilePreview from '@/assets/portfolio2.png'
-import webPreview from '@/assets/portfolio.png'
-import monitorPreview from '@/assets/work/database-monitor/services.png'
+import frontendImage from '@/assets/img1.jpg'
+import productImage from '@/assets/img2.jpg'
+import automationImage from '@/assets/img3.jpg'
 const active = shallowRef<number>(0)
 const capabilities = [
-  { number:'01', title:'Frontend engineering', description:'Responsive interfaces engineered for clarity, accessibility, speed, and maintainable growth.', items:['Vue and React','TypeScript','Design systems','Motion and interaction','Performance'], image:webPreview, alt:'Responsive product interfaces built by Izuchukwu' },
-  { number:'02', title:'Product development', description:'Digital products shaped from early requirements through architecture, implementation, and deployment.', items:['Product architecture','APIs and databases','Authentication','Internal tools','Cloud deployment'], image:mobilePreview, alt:'Mobile and web product work by Izuchukwu' },
-  { number:'03', title:'Automation systems', description:'Reliable workflows that connect services, surface operational health, and remove repetitive work.', items:['Service integration','Monitoring','Email automation','Operational tooling','Quality assurance'], image:monitorPreview, alt:'Database monitoring automation interface' },
+  { number:'01', title:'Frontend engineering', description:'Responsive interfaces engineered for clarity, accessibility, speed, and maintainable growth.', items:['Vue and React','TypeScript','Design systems','Motion and interaction','Performance'], image:frontendImage, alt:'Pixelated world map surrounding a projects folder' },
+  { number:'02', title:'Product development', description:'Digital products shaped from early requirements through architecture, implementation, and deployment.', items:['Product architecture','APIs and databases','Authentication','Internal tools','Cloud deployment'], image:productImage, alt:'Halftone hands holding a glowing light' },
+  { number:'03', title:'Automation systems', description:'Reliable workflows that connect services, surface operational health, and remove repetitive work.', items:['Service integration','Monitoring','Email automation','Operational tooling','Quality assurance'], image:automationImage, alt:'Abstract figure layered over automation code' },
 ]
 </script>
 
