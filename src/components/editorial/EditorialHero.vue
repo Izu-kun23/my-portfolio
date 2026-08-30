@@ -8,7 +8,7 @@
           <span class="block overflow-hidden"><span data-hero-word class="block">people</span></span>
         </h1>
       </div>
-      <div data-hero-meta class="relative z-20 grid gap-5 border-t border-white/25 pt-4 text-xs uppercase tracking-[0.08em] sm:grid-cols-3">
+      <div data-hero-meta class="relative z-20 grid gap-5 border-t border-white/25 pt-4 text-base leading-relaxed uppercase tracking-[0.06em] sm:grid-cols-3">
         <p class="m-0">Software engineer<br />Digital product builder</p>
         <p class="m-0 sm:text-center">Independent practice<br />Selected work 2024–2026</p>
         <div class="flex items-end justify-between gap-5 sm:justify-end">
