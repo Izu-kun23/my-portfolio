@@ -35,6 +35,10 @@ Bricolage Grotesque is the identity and body family already established in the p
 - Experience: ruled rows, three columns on desktop, stacked metadata on mobile.
 - Mission: scroll-filled statement followed by factual practice counters.
 - Capabilities: large numbered accordion rows with concise capability lists and imagery.
+- Experience: horizontal trust-proof cards using real roles, followed by a portrait-led personal introduction.
+- Contact: monochrome enquiry scene with an operational email form.
+- FAQ: practical commissioning questions in minimal expanding rows.
+- Footer: full-viewport black closing statement, social links, and oversized name.
 - Marquee: seamless repeated outline-free typography, slowed on hover.
 - Contact: oversized text link rather than a conventional button.
 - Footer: black, sparse social/navigation links, oversized name treatment.

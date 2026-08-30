@@ -4,6 +4,7 @@ import { useTemplateRef } from 'vue'
 import EditorialCapabilities from '@/components/editorial/EditorialCapabilities.vue'
 import EditorialContact from '@/components/editorial/EditorialContact.vue'
 import EditorialFooter from '@/components/editorial/EditorialFooter.vue'
+import EditorialFaq from '@/components/editorial/EditorialFaq.vue'
 import EditorialHero from '@/components/editorial/EditorialHero.vue'
 import EditorialMarquee from '@/components/editorial/EditorialMarquee.vue'
 import EditorialMission from '@/components/editorial/EditorialMission.vue'
@@ -28,8 +29,9 @@ useHashScroll()
     <EditorialMission />
     <EditorialCapabilities />
     <EditorialValues />
-    <EditorialMarquee text="LET'S TALK" direction="reverse" />
     <EditorialContact />
+    <EditorialFaq />
+    <EditorialMarquee text="LET'S BUILD TOGETHER" direction="reverse" />
     <EditorialFooter />
   </main>
 </template>
