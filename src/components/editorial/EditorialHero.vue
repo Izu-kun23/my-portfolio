@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, onMounted, onUnmounted, shallowRef } from 'vue'
 
-const targetText = 'I BUILD\nWHAT MOST\nPEOPLE.'
+const targetText = 'I BUILD\nWHAT MOVES\nPEOPLE.'
 const displayedText = shallowRef('')
 const soundEnabled = shallowRef(false)
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
@@ -66,7 +66,7 @@ onUnmounted(() => {
   <section id="home" class="relative min-h-[100svh] overflow-hidden bg-[var(--ink)] text-[var(--paper)]">
     <div class="mx-auto flex min-h-[100svh] max-w-[1800px] flex-col px-4 pt-24 pb-5 sm:px-7 lg:px-12">
       <div class="relative flex flex-1 items-center justify-center py-20">
-        <h1 class="relative z-10 m-0 min-h-[2.28em] text-center text-[clamp(4.6rem,13vw,13.5rem)] leading-[0.76] font-medium tracking-[-0.085em] whitespace-pre-line uppercase" aria-label="I build what most people.">{{ displayedText }}<span v-if="isTyping && !prefersReducedMotion" class="typing-cursor" aria-hidden="true" /></h1>
+        <h1 class="relative z-10 m-0 min-h-[2.28em] text-center text-[clamp(4.6rem,13vw,13.5rem)] leading-[0.76] font-medium tracking-[-0.085em] whitespace-pre-line uppercase" aria-label="I build what moves people.">{{ displayedText }}<span v-if="isTyping && !prefersReducedMotion" class="typing-cursor" aria-hidden="true" /></h1>
       </div>
       <div data-hero-meta class="relative z-20 grid gap-5 border-t border-white/25 pt-4 text-base leading-relaxed uppercase tracking-[0.06em] sm:grid-cols-3">
         <p class="m-0">Software engineer<br />Digital product builder</p>
