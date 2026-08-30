@@ -8,7 +8,7 @@ import { workProjects } from '@/data/work'
       <header data-reveal class="mb-20 grid gap-6 border-t border-black/20 pt-4 lg:grid-cols-12 lg:items-start">
         <p class="m-0 text-xs uppercase tracking-[0.08em] lg:col-span-3">Selected work</p>
         <h2 class="m-0 max-w-4xl text-[clamp(3.5rem,8vw,8.5rem)] leading-[0.88] font-light tracking-[-0.065em] lg:col-span-8">
-          Products built to be used.
+          Work that earns attention.
         </h2>
       </header>
 
@@ -41,7 +41,7 @@ import { workProjects } from '@/data/work'
             v-if="project.caseStudyUrl"
             :to="project.caseStudyUrl"
             data-image-reveal
-            class="project-visual group block overflow-hidden bg-black/5 lg:col-span-8"
+            class="project-visual group relative block overflow-hidden bg-black/5 lg:col-span-8"
             :class="index % 2 === 0 ? 'lg:order-2' : 'lg:order-1'"
           >
             <img
@@ -51,6 +51,7 @@ import { workProjects } from '@/data/work'
               decoding="async"
               class="h-full w-full object-cover transition-transform duration-700 ease-[cubic-bezier(.22,1,.36,1)] group-hover:scale-[1.025]"
             />
+            <span class="pointer-events-none absolute inset-0 flex items-center justify-center bg-black/0 text-sm uppercase tracking-[.08em] text-white opacity-0 transition-all duration-500 group-hover:bg-black/25 group-hover:opacity-100">View project ↗</span>
           </RouterLink>
         </article>
       </div>

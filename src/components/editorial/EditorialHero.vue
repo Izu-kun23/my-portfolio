@@ -1,73 +1,39 @@
 <script setup lang="ts">
 import { workProjects } from '@/data/work'
-
-const heroProjects = workProjects.slice(0, 5)
-const tileTops = [10, 24, 36, 24, 10]
+const tiles = [workProjects[2], workProjects[0], workProjects[1], workProjects[3], workProjects[4]]
 </script>
 
 <template>
   <section id="home" class="relative min-h-[100svh] overflow-hidden bg-[var(--ink)] text-[var(--paper)]">
-    <div class="mx-auto flex min-h-[100svh] max-w-[1600px] flex-col px-5 pt-20 pb-5 sm:px-8 lg:px-14">
-      <p data-hero-meta class="mt-4 text-xs tracking-[0.08em] uppercase sm:mt-8">
-        Software engineer &amp; digital product builder
-      </p>
-
-      <div class="hero-arc pointer-events-none absolute inset-x-0 top-[12%] h-[50%] sm:top-[9%] sm:h-[58%] lg:top-[5%] lg:h-[66%]" aria-hidden="true">
-        <figure
-          v-for="(project, index) in heroProjects"
-          :key="project.id"
-          data-hero-tile
-          class="hero-tile absolute overflow-hidden bg-[#222] shadow-[0_28px_80px_rgba(0,0,0,0.45)]"
-          :style="{
-            '--desktop-left': `${3 + index * 18}%`,
-            '--mobile-left': `${-20 + index * 23}%`,
-            '--tile-top': `${tileTops[index]}%`,
-            '--tile-rotation': `${(index - 2) * 5}deg`,
-          }"
-        >
+    <div class="mx-auto flex min-h-[100svh] max-w-[1800px] flex-col px-4 pt-24 pb-5 sm:px-7 lg:px-12">
+      <div class="relative flex flex-1 items-center justify-center py-20">
+        <figure v-for="(project, index) in tiles" :key="project.id" data-hero-tile :class="`hero-shot hero-shot--${index + 1}`">
           <img :src="project.image" alt="" class="h-full w-full object-cover" />
         </figure>
+        <h1 class="relative z-10 m-0 text-center text-[clamp(4.6rem,13vw,13.5rem)] leading-[0.76] font-medium tracking-[-0.085em] uppercase">
+          <span class="block overflow-hidden"><span data-hero-word class="block">Build what</span></span>
+          <span class="block overflow-hidden"><span data-hero-word class="block">moves</span></span>
+          <span class="block overflow-hidden"><span data-hero-word class="block">people</span></span>
+        </h1>
       </div>
-
-      <div class="relative z-10 mt-auto">
-        <div class="overflow-hidden">
-          <h1 data-hero-word class="m-0 text-[clamp(4.4rem,15.1vw,15rem)] leading-[0.72] font-light tracking-[-0.085em] whitespace-nowrap">
-            IZUCHUKWU
-          </h1>
-        </div>
-
-        <div class="mt-7 grid gap-6 border-t border-white/20 pt-4 text-sm sm:grid-cols-2 lg:grid-cols-12">
-          <p data-hero-meta class="m-0 max-w-[32rem] leading-relaxed text-white/72 lg:col-span-4 lg:col-start-7">
-            I build useful digital products with clean systems, sharp interfaces, and the details that make software feel considered.
-          </p>
-          <p data-hero-meta class="m-0 sm:text-right lg:col-span-2 lg:col-start-11">
-            United Kingdom<br />Available worldwide
-          </p>
+      <div data-hero-meta class="relative z-20 grid gap-5 border-t border-white/25 pt-4 text-xs uppercase tracking-[0.08em] sm:grid-cols-3">
+        <p class="m-0">Software engineer<br />Digital product builder</p>
+        <p class="m-0 sm:text-center">Independent practice<br />Selected work 2024–2026</p>
+        <div class="flex items-end justify-between gap-5 sm:justify-end">
+          <a href="https://github.com/Izu-kun23" target="_blank" rel="noreferrer" class="editorial-link">Github</a>
+          <a href="#work" class="editorial-link">Scroll to work ↓</a>
         </div>
       </div>
     </div>
-
-    <a href="#work" class="absolute right-5 bottom-5 z-20 inline-flex size-11 items-center justify-center rounded-full border border-white/35 text-white sm:right-8 lg:right-14" aria-label="View selected work">
-      <svg viewBox="0 0 20 20" fill="none" class="size-4" aria-hidden="true">
-        <path d="M10 3v13m0 0 5-5m-5 5-5-5" stroke="currentColor" stroke-width="1.2" />
-      </svg>
-    </a>
   </section>
 </template>
 
 <style scoped>
-.hero-tile {
-  width: clamp(7.5rem, 16vw, 16rem);
-  aspect-ratio: 4 / 3;
-  left: var(--desktop-left);
-  top: var(--tile-top);
-  transform: rotate(var(--tile-rotation));
-}
-
-@media (max-width: 639px) {
-  .hero-tile {
-    width: 38vw;
-    left: var(--mobile-left);
-  }
-}
+.hero-shot{position:absolute;overflow:hidden;background:#20201f;box-shadow:0 24px 80px rgb(0 0 0/.42)}
+.hero-shot--1{width:clamp(7rem,14vw,14rem);aspect-ratio:3/4;left:2%;top:11%;transform:rotate(-7deg)}
+.hero-shot--2{width:clamp(8rem,17vw,18rem);aspect-ratio:4/3;right:4%;top:8%;transform:rotate(5deg)}
+.hero-shot--3{width:clamp(7rem,13vw,13rem);aspect-ratio:3/4;left:15%;bottom:8%;transform:rotate(4deg)}
+.hero-shot--4{width:clamp(8rem,17vw,17rem);aspect-ratio:4/3;right:15%;bottom:5%;transform:rotate(-5deg)}
+.hero-shot--5{width:clamp(6rem,10vw,10rem);aspect-ratio:1;left:46%;top:4%;transform:rotate(3deg)}
+@media(max-width:639px){.hero-shot--1{left:-12%;top:12%}.hero-shot--2{right:-15%;top:16%}.hero-shot--3{left:-5%;bottom:12%}.hero-shot--4{right:-10%;bottom:10%}.hero-shot--5{left:40%;top:7%}}
 </style>

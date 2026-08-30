@@ -1,68 +1,36 @@
 <script setup lang="ts">
+import { shallowRef } from 'vue'
 import mobilePreview from '@/assets/portfolio2.png'
 import webPreview from '@/assets/portfolio.png'
-
+import monitorPreview from '@/assets/work/database-monitor/services.png'
+const active = shallowRef(0)
 const capabilities = [
-  {
-    number: '01',
-    title: 'Frontend engineering',
-    description: 'Responsive product interfaces built for clarity, accessibility, speed, and maintainable growth.',
-    items: ['Vue and React', 'TypeScript', 'Design systems', 'Motion and interaction', 'Performance'],
-    image: webPreview,
-    alt: 'A selection of responsive interfaces designed and engineered by Izuchukwu',
-  },
-  {
-    number: '02',
-    title: 'Product development',
-    description: 'End-to-end web products shaped from early requirements through architecture, implementation, and deployment.',
-    items: ['Product architecture', 'APIs and databases', 'Authentication', 'Internal tools', 'Cloud deployment'],
-    image: mobilePreview,
-    alt: 'Mobile product interface work by Izuchukwu',
-  },
-  {
-    number: '03',
-    title: 'Automation and systems',
-    description: 'Reliable workflows that connect services, surface operational health, and reduce repetitive work.',
-    items: ['Service integration', 'Monitoring', 'Email automation', 'Operational tooling', 'Quality assurance'],
-    image: webPreview,
-    alt: 'Operational web systems engineered by Izuchukwu',
-  },
+  { number:'01', title:'Frontend engineering', description:'Responsive interfaces engineered for clarity, accessibility, speed, and maintainable growth.', items:['Vue and React','TypeScript','Design systems','Motion and interaction','Performance'], image:webPreview, alt:'Responsive product interfaces built by Izuchukwu' },
+  { number:'02', title:'Product development', description:'Digital products shaped from early requirements through architecture, implementation, and deployment.', items:['Product architecture','APIs and databases','Authentication','Internal tools','Cloud deployment'], image:mobilePreview, alt:'Mobile and web product work by Izuchukwu' },
+  { number:'03', title:'Automation systems', description:'Reliable workflows that connect services, surface operational health, and remove repetitive work.', items:['Service integration','Monitoring','Email automation','Operational tooling','Quality assurance'], image:monitorPreview, alt:'Database monitoring automation interface' },
 ]
 </script>
 
 <template>
-  <section id="capabilities" class="editorial-section bg-[var(--ink)] px-5 text-[var(--paper)] sm:px-8 lg:px-14">
-    <div class="mx-auto max-w-[1600px]">
-      <header data-reveal class="mb-24 grid gap-6 border-t border-white/20 pt-4 lg:grid-cols-12">
-        <p class="m-0 text-xs uppercase tracking-[0.08em] lg:col-span-3">Capabilities</p>
-        <h2 class="m-0 text-[clamp(3.5rem,8vw,8rem)] leading-[0.9] font-light tracking-[-0.065em] lg:col-span-8">
-          From idea to working system.
-        </h2>
+  <section id="capabilities" class="bg-[var(--paper)] px-4 py-28 sm:px-7 md:py-44 lg:px-12">
+    <div class="mx-auto max-w-[1800px]">
+      <header data-reveal class="mb-16 grid gap-6 lg:grid-cols-12">
+        <p class="m-0 text-xs uppercase tracking-[.1em] lg:col-span-3">Capabilities</p>
+        <h2 class="m-0 text-[clamp(4rem,10vw,11rem)] leading-[.76] font-medium tracking-[-.075em] uppercase lg:col-span-9">Expand the<br />spectrum</h2>
       </header>
-
-      <article
-        v-for="(capability, index) in capabilities"
-        :key="capability.title"
-        data-reveal
-        class="grid gap-8 border-t border-white/20 py-12 lg:grid-cols-12 lg:items-center lg:py-20"
-      >
-        <div class="lg:col-span-5" :class="index % 2 === 0 ? 'lg:order-1' : 'lg:order-2 lg:col-start-8'">
-          <span class="text-xs text-white/55">{{ capability.number }}</span>
-          <h3 class="mt-5 mb-0 text-[clamp(2.8rem,6vw,6.5rem)] leading-[0.9] font-light tracking-[-0.055em]">{{ capability.title }}</h3>
-          <p class="mt-6 mb-0 max-w-lg text-base leading-relaxed text-white/58">{{ capability.description }}</p>
-          <ul class="mt-10 grid list-none grid-cols-2 gap-x-5 gap-y-3 p-0 text-sm text-white/74">
-            <li v-for="item in capability.items" :key="item">{{ item }}</li>
-          </ul>
-        </div>
-
-        <figure
-          data-image-reveal
-          class="overflow-hidden bg-white/5 lg:col-span-7"
-          :class="index % 2 === 0 ? 'lg:order-2' : 'lg:order-1'"
-        >
-          <img :src="capability.image" :alt="capability.alt" loading="lazy" decoding="async" class="aspect-[4/3] h-full w-full object-cover grayscale" />
-        </figure>
-      </article>
+      <div class="border-t border-black/25">
+        <article v-for="(item,index) in capabilities" :key="item.title" class="group border-b border-black/25" :class="active !== index ? 'lg:hover:bg-black/[.025]' : ''">
+          <button type="button" class="grid w-full grid-cols-[3rem_1fr_auto] items-center gap-3 py-6 text-left lg:grid-cols-[5rem_1fr_auto] lg:py-8" :aria-expanded="active === index" @click="active = index">
+            <span class="text-xs">{{ item.number }}</span><span class="text-[clamp(2.2rem,5.4vw,6rem)] leading-none tracking-[-.055em]">{{ item.title }}</span><span class="text-2xl transition-transform duration-500" :class="active === index ? 'rotate-45' : ''">+</span>
+          </button>
+          <div class="grid transition-[grid-template-rows] duration-700 ease-[cubic-bezier(.76,0,.24,1)]" :class="active === index ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'">
+            <div class="overflow-hidden"><div class="grid gap-8 pb-10 pl-12 lg:grid-cols-12 lg:pl-20">
+              <div class="lg:col-span-4"><p class="m-0 max-w-md text-base leading-relaxed text-black/60">{{ item.description }}</p><ul class="mt-8 list-none space-y-2 p-0 text-sm"><li v-for="(skill,skillIndex) in item.items" :key="skill">/{{ String(skillIndex + 1).padStart(2,'0') }} {{ skill }}</li></ul></div>
+              <figure class="m-0 overflow-hidden bg-black/5 lg:col-span-7 lg:col-start-6"><img :src="item.image" :alt="item.alt" loading="lazy" class="aspect-[16/9] h-full w-full object-cover grayscale transition duration-700 hover:grayscale-0" /></figure>
+            </div></div>
+          </div>
+        </article>
+      </div>
     </div>
   </section>
 </template>

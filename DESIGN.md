@@ -2,7 +2,7 @@
 
 ## Direction
 
-Monochrome creative portfolio influenced by modern independent-studio sites. The opening is cinematic and black; the body shifts to warm paper. A curved collage of real product screenshots and an oversized name create the signature frame.
+Monochrome creative portfolio influenced by Zentro's image-led studio rhythm. The opening is cinematic and black; the body shifts to warm paper. A scattered collage of real product screenshots frames a three-line product-building statement. Opposing marquees, full-width work, progressive text fill, and expanding capability rows create the signature sequence.
 
 ## Color
 
@@ -29,10 +29,12 @@ Bricolage Grotesque is the identity and body family already established in the p
 ## Components
 
 - Navigation: fixed, thin, text-led; full-screen mobile menu.
-- Hero: black viewport, arcing screenshot collage, oversized name, compact statement and location.
+- Navigation: fixed location/identity/menu triptych with a full-screen typographic menu.
+- Hero: black viewport, scattered screenshot collage, oversized three-line statement, compact practice metadata.
 - Projects: full-width editorial figures with project number, category, title, year, and direct actions.
 - Experience: ruled rows, three columns on desktop, stacked metadata on mobile.
-- Capabilities: large numbered rows with concise capability lists and imagery.
+- Mission: scroll-filled statement followed by factual practice counters.
+- Capabilities: large numbered accordion rows with concise capability lists and imagery.
 - Marquee: seamless repeated outline-free typography, slowed on hover.
 - Contact: oversized text link rather than a conventional button.
 - Footer: black, sparse social/navigation links, oversized name treatment.

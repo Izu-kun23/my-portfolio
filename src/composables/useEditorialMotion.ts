@@ -61,6 +61,21 @@ export function useEditorialMotion(rootRef: Ref<HTMLElement | null>) {
           timeline.fromTo(image, { scale: 1.1 }, { scale: 1, duration: 1.25, ease: 'power4.out' }, 0)
         }
       })
+
+      gsap.utils.toArray<HTMLElement>('[data-word-reveal]').forEach((element) => {
+        const words = gsap.utils.toArray<HTMLElement>('[data-word]', element)
+        gsap.to(words, {
+          color: 'var(--paper)',
+          stagger: 0.08,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: element,
+            start: 'top 82%',
+            end: 'bottom 48%',
+            scrub: true,
+          },
+        })
+      })
     }, root)
 
     ScrollTrigger.refresh()
