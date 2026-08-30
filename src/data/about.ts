@@ -27,8 +27,8 @@ export const aboutIntro = {
   experienceSubtext:
     'Skills I have learned and gained over the years in different environments',
   paragraphs: [
-    'I am Izuchukwu Tony, a software engineer who builds interfaces that feel as considered as they look — fast, accessible, and deliberate down to the easing curve.',
-    'My work sits where product thinking meets motion design: shipping real features, then refining the details most teams never get to.',
+    'I am Izuchukwu Tony, a software engineer who builds interfaces that feel as considered as they look: fast, accessible, and deliberate down to the easing curve.',
+    'My work sits where product thinking meets motion design. I ship real features, then refine the details most teams never get to.',
   ],
 }
 

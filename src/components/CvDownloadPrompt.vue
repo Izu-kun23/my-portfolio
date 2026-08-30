@@ -5,6 +5,7 @@ import { scrollToHash } from '@/composables/useHashScroll'
 
 const isOpen = shallowRef(false)
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+const usesTouchInput = window.matchMedia('(pointer: coarse)').matches
 let revealTimer: number | undefined
 
 function playChime() {
@@ -50,7 +51,8 @@ function goToContact(event: MouseEvent) {
 }
 
 onMounted(() => {
-  revealTimer = window.setTimeout(openPrompt, prefersReducedMotion ? 300 : 1400)
+  const revealDelay = prefersReducedMotion ? 500 : usesTouchInput ? 9000 : 6500
+  revealTimer = window.setTimeout(openPrompt, revealDelay)
 })
 
 onUnmounted(() => {
