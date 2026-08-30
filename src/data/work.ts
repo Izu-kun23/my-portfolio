@@ -2,6 +2,9 @@ import calayaPreview from '@/assets/work/calaya/preview.png'
 import calayaServices from '@/assets/work/calaya/services.png'
 import calayaServicesMenu from '@/assets/work/calaya/services-menu.png'
 import calayaStrengths from '@/assets/work/calaya/strengths.png'
+import databaseMonitorAlertSchedule from '@/assets/work/database-monitor/alert-schedule.png'
+import databaseMonitorOverview from '@/assets/work/database-monitor/overview.png'
+import databaseMonitorServices from '@/assets/work/database-monitor/services.png'
 import kentoksCart from '@/assets/work/kentoks-kitchen/cart.png'
 import kentoksCategories from '@/assets/work/kentoks-kitchen/categories.png'
 import kentoksHero from '@/assets/work/kentoks-kitchen/hero.png'
@@ -64,6 +67,22 @@ export const workSectionIntro = {
 
 /** Newest projects first. */
 export const workProjects: WorkProject[] = [
+  {
+    id: 'database-monitor',
+    category: 'Automation',
+    title: 'DATABASE MONITOR',
+    year: '2026',
+    techStack: ['TypeScript', 'Aiven API', 'Email alerts'],
+    tags: [
+      { label: 'TypeScript' },
+      { label: 'Aiven API' },
+      { label: 'Monitoring' },
+      { label: '2026', filled: true },
+    ],
+    image: databaseMonitorOverview,
+    imageAlt: 'Database Monitor service overview showing the health of connected databases',
+    caseStudyUrl: '/work/database-monitor',
+  },
   {
     id: 'roots-restaurants',
     category: 'Food & Hospitality',
@@ -135,6 +154,45 @@ export const workProjects: WorkProject[] = [
 ]
 
 export const workCaseStudies: Record<string, WorkCaseStudy> = {
+  'database-monitor': {
+    id: 'database-monitor',
+    title: 'Database Monitor',
+    client: 'Aiven Monitor',
+    role: 'Product design & engineering',
+    year: '2026',
+    techStack: ['TypeScript', 'Aiven API', 'Email alerts'],
+    tags: [
+      { label: 'TypeScript' },
+      { label: 'Aiven API' },
+      { label: 'Monitoring' },
+      { label: '2026', filled: true },
+    ],
+    overview:
+      'Database Monitor provides a single operational view of connected database services. It continuously observes each service, shows which databases are running, and makes services that need attention immediately visible.',
+    challenge:
+      'Database services can stop unexpectedly, and discovering an outage manually creates avoidable downtime. A clear overview was needed so service health could be checked quickly, without repeatedly opening and inspecting every database project.',
+    solution:
+      'I built a monitoring dashboard that checks connected database services and records their current and previous status. When a database is no longer running, the system sends an email alert so the issue can be investigated immediately. Scheduled status emails also provide a general health overview at chosen times, making routine checks automatic.',
+    outcome:
+      'Database health is now visible from one place, with immediate outage notifications and scheduled summaries working together to reduce manual checking and make service interruptions easier to catch and respond to.',
+    gallery: [
+      {
+        image: databaseMonitorOverview,
+        alt: 'Database Monitor overview with service health totals and health distribution',
+        caption: 'A consolidated overview of every connected service, including healthy, warning, critical, and unknown states.',
+      },
+      {
+        image: databaseMonitorServices,
+        alt: 'Database Monitor list of connected services and their running status',
+        caption: 'Live service monitoring with current status, previous status, project ownership, and the latest check time.',
+      },
+      {
+        image: databaseMonitorAlertSchedule,
+        alt: 'Database Monitor scheduled email alert dashboard',
+        caption: 'Scheduled status emails and delivery history provide recurring database-health summaries alongside outage alerts.',
+      },
+    ],
+  },
   'roots-restaurants': {
     id: 'roots-restaurants',
     title: 'Roots Restaurant',
