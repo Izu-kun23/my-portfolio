@@ -3,6 +3,8 @@ import { onMounted, onUnmounted, useTemplateRef, watch } from 'vue'
 
 import MotionScrambleText from '@/components/MotionScrambleText.vue'
 import WorkProjectCard from '@/components/WorkProjectCard.vue'
+import ScrollStack from '@/components/scroll-stack/ScrollStack.vue'
+import ScrollStackItem from '@/components/scroll-stack/ScrollStackItem.vue'
 import { useWorkMotionScroll } from '@/composables/useWorkMotionScroll'
 import { useWorkSectionReveal } from '@/composables/useWorkSectionReveal'
 import { resetWorkScroller, useWorkScrollHandoff } from '@/composables/useWorkScrollHandoff'
@@ -156,16 +158,17 @@ defineExpose({ reveal: sectionReveal, resetWorkScroller: resetWorkScrollerState 
           </p>
         </header>
 
-        <div class="flex flex-col gap-12 md:gap-14 md:pl-8 lg:pl-14 xl:pl-20">
-          <div
+        <ScrollStack class="md:pl-8 lg:pl-14 xl:pl-20">
+          <ScrollStackItem
             v-for="project in workProjects"
             :key="project.id"
-            ref="projectRefs"
-            class="work-project-panel pb-6 last:pb-10"
+            item-class="work-project-panel"
           >
-            <WorkProjectCard :project="project" />
-          </div>
-        </div>
+            <div ref="projectRefs">
+              <WorkProjectCard :project="project" />
+            </div>
+          </ScrollStackItem>
+        </ScrollStack>
       </div>
     </div>
   </section>
@@ -174,10 +177,6 @@ defineExpose({ reveal: sectionReveal, resetWorkScroller: resetWorkScrollerState 
 <style scoped>
 .work-scroller {
   -webkit-overflow-scrolling: touch;
-}
-
-.work-project-panel {
-  flex-shrink: 0;
 }
 
 .work-index__window {
