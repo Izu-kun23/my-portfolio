@@ -33,7 +33,7 @@ const { activeIndex, digitY, refreshMeasurements, resetToFirst } = useWorkMotion
   scrollerRef,
   projectRefs,
   digitTrackRef,
-  { enabled: true },
+  { enabled: !isMobileLayout },
 )
 
 useWorkScrollHandoff(scrollerRef, {

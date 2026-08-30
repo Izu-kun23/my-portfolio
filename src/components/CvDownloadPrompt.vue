@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, shallowRef } from 'vue'
 
+import { scrollToHash } from '@/composables/useHashScroll'
+
 const isOpen = shallowRef(false)
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 let revealTimer: number | undefined
@@ -9,8 +11,7 @@ function playChime() {
   if (prefersReducedMotion) return
 
   try {
-    const AudioContextClass = window.AudioContext
-    const audioContext = new AudioContextClass()
+    const audioContext = new window.AudioContext()
     const oscillator = audioContext.createOscillator()
     const gain = audioContext.createGain()
     const now = audioContext.currentTime
@@ -42,6 +43,12 @@ function togglePrompt() {
   isOpen.value = !isOpen.value
 }
 
+function goToContact(event: MouseEvent) {
+  event.preventDefault()
+  isOpen.value = false
+  scrollToHash('#contact')
+}
+
 onMounted(() => {
   revealTimer = window.setTimeout(openPrompt, prefersReducedMotion ? 300 : 1400)
 })
@@ -54,17 +61,17 @@ onUnmounted(() => {
 <template>
   <aside
     class="fixed right-[calc(1rem+env(safe-area-inset-right))] bottom-[calc(1rem+env(safe-area-inset-bottom))] z-40 flex items-end gap-3 sm:right-6 sm:bottom-6"
-    aria-label="CV download"
+    aria-label="Contact prompt"
   >
-    <Transition name="cv-prompt">
+    <Transition name="contact-prompt">
       <div
         v-if="isOpen"
-        id="cv-download-panel"
-        class="relative mb-2 w-[min(18rem,calc(100vw-6.5rem))] rounded-2xl border border-black/10 bg-[#f4f4f1] p-4 pr-10 text-black shadow-[0_16px_45px_rgba(0,0,0,0.18)] sm:w-72 sm:p-5 sm:pr-11"
+        id="contact-prompt-panel"
+        class="relative mb-2 w-[min(19rem,calc(100vw-6.5rem))] rounded-2xl border border-black/10 bg-[#f4f4f1] p-4 pr-10 text-black shadow-[0_16px_45px_rgba(0,0,0,0.18)] sm:w-80 sm:p-5 sm:pr-11"
       >
         <button
           type="button"
-          aria-label="Close CV prompt"
+          aria-label="Close contact prompt"
           class="absolute top-2.5 right-2.5 inline-flex size-8 items-center justify-center rounded-full text-black/50 transition-colors hover:bg-black/5 hover:text-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black"
           @click="isOpen = false"
         >
@@ -73,33 +80,35 @@ onUnmounted(() => {
           </svg>
         </button>
 
-        <p class="m-0 text-base font-semibold tracking-tight sm:text-lg">Want the full picture?</p>
+        <p class="m-0 text-base font-semibold tracking-tight sm:text-lg">
+          Got a million dollar idea.
+        </p>
         <a
-          href="/Izuchukwu-CV.pdf"
-          download
-          class="mt-2 inline-flex items-center gap-2 text-sm font-medium text-black/60 underline decoration-gray-300 underline-offset-4 transition-colors hover:text-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black sm:text-base"
+          href="#contact"
+          class="mt-2 inline-flex items-center gap-2 text-sm font-medium text-black/60 underline decoration-black/30 underline-offset-4 transition-colors hover:text-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black sm:text-base"
+          @click="goToContact"
         >
-          Download my CV
+          Contact me!
           <svg class="size-4" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-            <path d="M8 2v8m0 0 3-3m-3 3L5 7M3 13h10" stroke="currentColor" stroke-width="1.5" />
+            <path d="M3 8h10m-4-4 4 4-4 4" stroke="currentColor" stroke-width="1.5" />
           </svg>
         </a>
       </div>
     </Transition>
 
     <div class="relative shrink-0">
-      <span class="absolute -top-0.5 -left-0.5 z-10 size-4 rounded-full border-2 border-[#f4f4f1] bg-black" aria-hidden="true" />
+      <span class="absolute -top-0.5 -left-0.5 z-10 size-4 rounded-full border-2 border-[#f4f4f1] bg-[#3a3a3a]" aria-hidden="true" />
       <button
         type="button"
-        aria-label="Open CV download"
+        aria-label="Open contact prompt"
         :aria-expanded="isOpen"
-        aria-controls="cv-download-panel"
-        class="inline-flex size-14 items-center justify-center rounded-full bg-black text-[#f4f4f1] shadow-[0_12px_30px_rgba(0,0,0,0.25)] transition-transform hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2 sm:size-16"
+        aria-controls="contact-prompt-panel"
+        class="inline-flex size-14 items-center justify-center rounded-full bg-[#3a3a3a] text-[#f4f4f1] shadow-[0_12px_30px_rgba(0,0,0,0.25)] transition-[transform,background-color] hover:scale-105 hover:bg-[#2f2f2f] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2 sm:size-16"
         @click="togglePrompt"
       >
         <svg class="size-6 sm:size-7" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <path d="M7 3.75h7l3 3V20.25H7V3.75Z" stroke="currentColor" stroke-width="1.5" />
-          <path d="M14 3.75v3h3M9.5 11h5M9.5 14.5h5" stroke="currentColor" stroke-width="1.5" />
+          <path d="M4 5.5h16v11H9l-5 3v-14Z" stroke="currentColor" stroke-width="1.5" />
+          <path d="M8 9h8M8 12.5h5" stroke="currentColor" stroke-width="1.5" />
         </svg>
       </button>
     </div>
@@ -107,23 +116,23 @@ onUnmounted(() => {
 </template>
 
 <style scoped>
-.cv-prompt-enter-active,
-.cv-prompt-leave-active {
+.contact-prompt-enter-active,
+.contact-prompt-leave-active {
   transition:
     opacity 220ms ease,
     transform 300ms cubic-bezier(0.34, 1.56, 0.64, 1);
   transform-origin: bottom right;
 }
 
-.cv-prompt-enter-from,
-.cv-prompt-leave-to {
+.contact-prompt-enter-from,
+.contact-prompt-leave-to {
   opacity: 0;
   transform: translateY(0.75rem) scale(0.92);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .cv-prompt-enter-active,
-  .cv-prompt-leave-active {
+  .contact-prompt-enter-active,
+  .contact-prompt-leave-active {
     transition-duration: 0ms;
   }
 }

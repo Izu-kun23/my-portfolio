@@ -52,6 +52,8 @@ function normalizeSectionId(hashOrId: string): string {
 export function useUnveilScroll({ rootRef, stageRef, sections }: UseUnveilScrollOptions) {
   let ctx: gsap.Context | null = null
   let resizeHandler: (() => void) | null = null
+  let resizeFrame = 0
+  let viewportWidth = 0
   let freeScrollActiveHandler: (() => void) | null = null
   let postStageScrollHandler: (() => void) | null = null
   let revealSectionObserver: IntersectionObserver | null = null
@@ -199,6 +201,7 @@ export function useUnveilScroll({ rootRef, stageRef, sections }: UseUnveilScroll
     rootElement = root
     stageElement = stage
     useFreeScrollLayout = prefersFreeScrollLayout()
+    viewportWidth = window.innerWidth
     unveilReducedMotion.value = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     unveilUsesNativeLayout.value = useFreeScrollLayout
 
@@ -230,12 +233,23 @@ export function useUnveilScroll({ rootRef, stageRef, sections }: UseUnveilScroll
       }
 
       resizeHandler = () => {
-        freeScrollActiveHandler?.()
-        ScrollTrigger.refresh()
-        lenis.resize()
+        const nextWidth = window.innerWidth
+
+        // Mobile browser chrome expands while scrolling upward and emits a
+        // burst of height-only resize events. Refreshing ScrollTrigger and
+        // Lenis for each event forces layout during the gesture and causes
+        // visible scroll stutter. Only a width change affects this layout.
+        if (Math.abs(nextWidth - viewportWidth) < 2) return
+        viewportWidth = nextWidth
+
+        cancelAnimationFrame(resizeFrame)
+        resizeFrame = requestAnimationFrame(() => {
+          freeScrollActiveHandler?.()
+          ScrollTrigger.refresh()
+          lenis.resize()
+        })
       }
       window.addEventListener('resize', resizeHandler)
-      window.visualViewport?.addEventListener('resize', resizeHandler)
       return
     }
 
@@ -326,6 +340,7 @@ export function useUnveilScroll({ rootRef, stageRef, sections }: UseUnveilScroll
       window.removeEventListener('resize', resizeHandler)
       window.visualViewport?.removeEventListener('resize', resizeHandler)
     }
+    cancelAnimationFrame(resizeFrame)
     unveilUsesNativeLayout.value = false
     ctx?.revert()
     ctx = null

@@ -19,7 +19,8 @@ defineProps<{
       :alt="project.imageAlt"
       class="absolute inset-0 h-full w-full transition-transform duration-700 ease-out group-hover:scale-[1.035] group-focus-within:scale-[1.035] motion-reduce:transition-none"
       :class="project.id === 'kentoks-kitchen' ? 'object-contain p-3 sm:p-4' : 'object-cover'"
-      loading="eager"
+      loading="lazy"
+      decoding="async"
     />
 
     <div

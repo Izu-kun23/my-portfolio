@@ -23,7 +23,7 @@ defineSlots<{
   transform-style: preserve-3d;
 }
 
-@media (prefers-reduced-motion: no-preference) {
+@media (pointer: fine) and (prefers-reduced-motion: no-preference) {
   .scroll-stack-card {
     will-change: transform, filter;
   }

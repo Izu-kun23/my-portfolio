@@ -2,6 +2,7 @@
 import { nextTick, onMounted, onUnmounted, useTemplateRef } from 'vue'
 
 import { gsap } from '@/lib/gsap'
+import { prefersTouchInteraction } from '@/lib/scrollMode'
 
 const rootRef = useTemplateRef<HTMLElement>('rootRef')
 const firstRowRef = useTemplateRef<HTMLElement>('firstRowRef')
@@ -11,6 +12,8 @@ let context: gsap.Context | undefined
 onMounted(async () => {
   await nextTick()
   if (!rootRef.value || !firstRowRef.value || !secondRowRef.value) return
+
+  if (prefersTouchInteraction()) return
 
   context = gsap.context(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return

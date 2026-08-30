@@ -48,7 +48,7 @@ function handleNavClick(to: RouteLocationRaw, event: MouseEvent) {
 
       <button
         type="button"
-        class="ml-auto flex size-12 shrink-0 cursor-pointer flex-col items-center justify-center gap-[0.35rem] rounded-full border border-black/15 bg-[#f4f4f1]/90 p-0 shadow-sm backdrop-blur-sm transition-[background,box-shadow,transform] duration-200 hover:scale-[1.02] hover:bg-[#f4f4f1] hover:shadow-md lg:hidden"
+          class="mobile-menu-button ml-auto flex size-12 shrink-0 cursor-pointer flex-col items-center justify-center gap-[0.35rem] rounded-full border border-black/15 bg-[#f4f4f1]/90 p-0 shadow-sm backdrop-blur-sm transition-[background,box-shadow,transform] duration-200 hover:scale-[1.02] hover:bg-[#f4f4f1] hover:shadow-md lg:hidden"
         :aria-expanded="isOpen"
         aria-controls="site-menu-sidebar"
         aria-label="Open menu"
