@@ -1,32 +1,34 @@
 <script setup lang="ts">
 import { computed, onMounted, onUnmounted, shallowRef } from 'vue'
+import typewriterSoundUrl from '@/audio/kave_msri-typewriter-sound-effect-312919.mp3'
 
 const targetText = 'I BUILD\nWHAT MOVES\nPEOPLE.'
 const displayedText = shallowRef('')
-const soundEnabled = shallowRef(false)
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 const isTyping = computed(() => displayedText.value.length < targetText.length)
 let startTimer: number | undefined
 let typingTimer: number | undefined
-let audioContext: AudioContext | null = null
+let typewriterAudio: HTMLAudioElement | null = null
 
-function playKeyClick(character: string) {
-  if (!soundEnabled.value || !character.trim() || !audioContext || audioContext.state !== 'running') return
-  const oscillator = audioContext.createOscillator()
-  const gain = audioContext.createGain()
-  oscillator.type = 'square'
-  oscillator.frequency.value = 130 + Math.random() * 55
-  gain.gain.setValueAtTime(0.025, audioContext.currentTime)
-  gain.gain.exponentialRampToValueAtTime(0.0001, audioContext.currentTime + 0.025)
-  oscillator.connect(gain)
-  gain.connect(audioContext.destination)
-  oscillator.start()
-  oscillator.stop(audioContext.currentTime + 0.03)
+function stopSound() {
+  if (!typewriterAudio) return
+  typewriterAudio.pause()
+  typewriterAudio.currentTime = 0
+}
+
+async function playSound() {
+  if (!typewriterAudio || !isTyping.value) return
+  try { await typewriterAudio.play() } catch { /* Browser autoplay policy: first interaction retries it. */ }
+}
+
+function unlockSound() {
+  if (isTyping.value && typewriterAudio?.paused) void playSound()
 }
 
 function stopTyping() {
   if (startTimer !== undefined) window.clearTimeout(startTimer)
   if (typingTimer !== undefined) window.clearInterval(typingTimer)
+  stopSound()
   startTimer = undefined
   typingTimer = undefined
 }
@@ -35,30 +37,34 @@ function startTyping(delay = 0) {
   stopTyping()
   displayedText.value = ''
   startTimer = window.setTimeout(() => {
+    void playSound()
     typingTimer = window.setInterval(() => {
       const character = targetText[displayedText.value.length] ?? ''
       displayedText.value += character
-      playKeyClick(character)
       if (!isTyping.value) stopTyping()
     }, 68)
   }, delay)
 }
 
-async function replayWithSound() {
-  audioContext ??= new AudioContext()
-  await audioContext.resume()
-  soundEnabled.value = true
-  startTyping(120)
-}
-
 onMounted(() => {
-  if (prefersReducedMotion) displayedText.value = targetText
-  else startTyping(2300)
+  if (prefersReducedMotion) {
+    displayedText.value = targetText
+    return
+  }
+  typewriterAudio = new Audio(typewriterSoundUrl)
+  typewriterAudio.preload = 'auto'
+  typewriterAudio.volume = 0.42
+  typewriterAudio.loop = true
+  window.addEventListener('pointerdown', unlockSound, { once: true })
+  window.addEventListener('keydown', unlockSound, { once: true })
+  startTyping(2300)
 })
 
 onUnmounted(() => {
   stopTyping()
-  void audioContext?.close()
+  window.removeEventListener('pointerdown', unlockSound)
+  window.removeEventListener('keydown', unlockSound)
+  typewriterAudio = null
 })
 </script>
 
@@ -70,7 +76,7 @@ onUnmounted(() => {
       </div>
       <div data-hero-meta class="relative z-20 grid gap-5 border-t border-white/25 pt-4 text-base leading-relaxed uppercase tracking-[0.06em] sm:grid-cols-3">
         <p class="m-0">Software engineer<br />Digital product builder</p>
-        <div class="sm:text-center"><button type="button" class="editorial-link min-h-11 uppercase" @click="replayWithSound">{{ soundEnabled ? 'Replay typing + sound' : 'Enable sound + replay' }}</button></div>
+        <p class="m-0 sm:text-center">Independent practice<br />Selected work 2024–2026</p>
         <div class="flex items-end justify-between gap-5 sm:justify-end"><a href="https://github.com/Izu-kun23" target="_blank" rel="noreferrer" class="editorial-link">Github</a><a href="#work" class="editorial-link">Scroll to work ↓</a></div>
       </div>
     </div>
