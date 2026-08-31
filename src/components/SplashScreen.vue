@@ -6,6 +6,7 @@ const emit = defineEmits<{
 }>()
 
 const progress = shallowRef(0)
+const hasStarted = shallowRef(false)
 const fullName = 'IZUCHUKWU'
 const displayedName = shallowRef('')
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
@@ -21,9 +22,9 @@ function finish() {
   completionTimer = window.setTimeout(() => emit('complete'), prefersReducedMotion ? 100 : 350)
 }
 
-onMounted(() => {
-  previousOverflow = document.documentElement.style.overflow
-  document.documentElement.style.overflow = 'hidden'
+function startAnimation() {
+  if (hasStarted.value) return
+  hasStarted.value = true
 
   if (prefersReducedMotion) {
     displayedName.value = fullName
@@ -51,6 +52,11 @@ onMounted(() => {
       completionTimer = window.setTimeout(finish, 320)
     }
   }, 85)
+}
+
+onMounted(() => {
+  previousOverflow = document.documentElement.style.overflow
+  document.documentElement.style.overflow = 'hidden'
 })
 
 onUnmounted(() => {
@@ -64,9 +70,10 @@ onUnmounted(() => {
 <template>
   <div
     class="fixed inset-0 z-[60] flex min-h-dvh flex-col overflow-hidden bg-black px-4 py-5 text-[#f4f4f1] sm:px-6 sm:py-7 md:px-12 lg:px-20"
-    role="status"
+    role="dialog"
+    aria-modal="true"
     aria-live="polite"
-    aria-label="Loading portfolio"
+    :aria-label="hasStarted ? 'Loading portfolio' : 'Start portfolio experience'"
   >
     <div class="flex items-center justify-between font-mono text-[0.65rem] tracking-[0.16em] text-[#f4f4f1]/50 uppercase sm:text-xs">
       <span>Portfolio</span>
@@ -75,6 +82,7 @@ onUnmounted(() => {
 
     <div class="flex flex-1 items-center justify-center">
       <p
+        v-if="hasStarted"
         class="splash-name m-0 text-[clamp(3rem,12vw,11rem)] leading-none font-bold tracking-[-0.065em] uppercase"
         aria-hidden="true"
       >
@@ -87,12 +95,18 @@ onUnmounted(() => {
           class="ml-1 align-top text-[0.13em] leading-none tracking-normal text-[#f4f4f1]"
         >TM</sup>
       </p>
-      <span class="sr-only">Izuchukwu trademark</span>
+      <span v-if="hasStarted" class="sr-only">Izuchukwu trademark</span>
+      <button
+        v-else
+        type="button"
+        class="press-start-2p-regular press-start border-0 bg-transparent p-4 text-[#f4f4f1]"
+        @click="startAnimation"
+      >PRESS START</button>
     </div>
 
     <div class="w-full" aria-hidden="true">
       <div class="mb-3 flex justify-between font-mono text-[0.6rem] tracking-[0.14em] text-[#f4f4f1]/45 uppercase sm:text-[0.68rem]">
-        <span>Loading</span>
+        <span>{{ hasStarted ? 'Loading' : 'Ready' }}</span>
         <span>United Kingdom</span>
       </div>
       <div class="h-px w-full bg-[#f4f4f1]/20">
@@ -109,6 +123,26 @@ onUnmounted(() => {
 .splash-name {
   min-width: min(91vw, 11ch);
   text-align: center;
+}
+
+.press-start-2p-regular {
+  font-family: 'Press Start 2P', system-ui;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.press-start {
+  font-size: clamp(1rem, 2.8vw, 1.75rem);
+  line-height: 1.8;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+}
+
+.press-start:hover,
+.press-start:focus-visible {
+  color: #ffffff;
+  outline: none;
+  text-shadow: 0 0 12px rgb(244 244 241 / 0.7);
 }
 
 .splash-name__text {
