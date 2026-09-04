@@ -4,6 +4,7 @@ import { useRoute } from 'vue-router'
 import { AnimatePresence, motion } from 'motion-v'
 
 import Home from '@/pages/Home.vue'
+import CollaborationModal from '@/components/CollaborationModal.vue'
 import CvDownloadPrompt from '@/components/CvDownloadPrompt.vue'
 import SplashScreen from '@/components/SplashScreen.vue'
 import WorkCaseStudy from '@/pages/WorkCaseStudy.vue'
@@ -15,8 +16,11 @@ import {
 const route = useRoute()
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 const isSplashVisible = shallowRef(true)
+const hasEnteredSite = shallowRef(false)
+const isCollaborationDismissed = shallowRef(false)
 
 const isCaseStudy = computed(() => route.name === 'work-case-study')
+const isCollaborationEnabled = computed(() => hasEnteredSite.value && !isCaseStudy.value)
 
 const caseStudyTransition = prefersReducedMotion
   ? { duration: 0 }
@@ -65,11 +69,16 @@ watch(
       </motion.div>
     </AnimatePresence>
 
-    <Transition name="splash">
+    <Transition name="splash" @after-leave="hasEnteredSite = true">
       <SplashScreen v-if="isSplashVisible" @complete="isSplashVisible = false" />
     </Transition>
 
-    <CvDownloadPrompt v-if="!isSplashVisible && !isCaseStudy" />
+    <CollaborationModal
+      :enabled="isCollaborationEnabled"
+      @dismissed="isCollaborationDismissed = true"
+    />
+
+    <CvDownloadPrompt v-if="hasEnteredSite && !isCaseStudy && isCollaborationDismissed" />
   </div>
 </template>
 
