@@ -1,21 +1,22 @@
-import calayaPreview from '@/assets/work/calaya/preview.png'
+import calayaCover from '@/assets/cover/calaya_portfolio.png'
 import calayaServices from '@/assets/work/calaya/services.png'
 import calayaServicesMenu from '@/assets/work/calaya/services-menu.png'
 import calayaStrengths from '@/assets/work/calaya/strengths.png'
+import databaseMonitorCover from '@/assets/cover/db_monitor.png'
 import databaseMonitorAlertSchedule from '@/assets/work/database-monitor/alert-schedule.png'
 import databaseMonitorOverview from '@/assets/work/database-monitor/overview.png'
 import databaseMonitorServices from '@/assets/work/database-monitor/services.png'
+import kentoksCover from '@/assets/cover/kentoks.png'
 import kentoksCart from '@/assets/work/kentoks-kitchen/cart.png'
 import kentoksCategories from '@/assets/work/kentoks-kitchen/categories.png'
 import kentoksHero from '@/assets/work/kentoks-kitchen/hero.png'
 import kentoksMenu from '@/assets/work/kentoks-kitchen/menu.png'
-import kentoksPreview from '@/assets/work/kentoks-kitchen/preview.png'
+import rootsCover from '@/assets/cover/roots.png'
 import rootsGallery from '@/assets/work/roots-restaurants/gallery.png'
 import rootsMenu from '@/assets/work/roots-restaurants/menu.png'
-import rootsPreview from '@/assets/work/roots-restaurants/preview.png'
 import rootsReservations from '@/assets/work/roots-restaurants/reservations.png'
+import tcnCover from '@/assets/cover/tcn.png'
 import tcnCentres from '@/assets/work/tcn/centres.png'
-import tcnPreview from '@/assets/work/tcn/preview.png'
 import tcnSermons from '@/assets/work/tcn/sermons.png'
 import tcnWelcome from '@/assets/work/tcn/welcome.png'
 
@@ -79,8 +80,8 @@ export const workProjects: WorkProject[] = [
       { label: 'Monitoring' },
       { label: '2026', filled: true },
     ],
-    image: databaseMonitorOverview,
-    imageAlt: 'Database Monitor service overview showing the health of connected databases',
+    image: databaseMonitorCover,
+    imageAlt: 'Database Monitor dashboard shown on laptop and phone',
     caseStudyUrl: '/work/database-monitor',
   },
   {
@@ -95,8 +96,8 @@ export const workProjects: WorkProject[] = [
       { label: 'Postgres' },
       { label: '2026', filled: true },
     ],
-    image: rootsPreview,
-    imageAlt: 'Roots Restaurant homepage preview',
+    image: rootsCover,
+    imageAlt: 'Roots Restaurant website shown on laptop and phone',
     liveUrl: 'https://www.rootsrestaurants.co.uk/',
     caseStudyUrl: '/work/roots-restaurants',
   },
@@ -112,8 +113,8 @@ export const workProjects: WorkProject[] = [
       { label: 'Postgres' },
       { label: '2026', filled: true },
     ],
-    image: tcnPreview,
-    imageAlt: 'The Covenant Nation UK homepage preview',
+    image: tcnCover,
+    imageAlt: 'The Covenant Nation UK website shown on a phone',
     liveUrl: 'https://tcn.ojsolutions.co.uk/',
     caseStudyUrl: '/work/the-covenant-nation',
   },
@@ -129,8 +130,8 @@ export const workProjects: WorkProject[] = [
       { label: 'SQL' },
       { label: '2025', filled: true },
     ],
-    image: calayaPreview,
-    imageAlt: 'Calaya Engineering Services homepage preview',
+    image: calayaCover,
+    imageAlt: 'Calaya Engineering Services website shown on laptop and phone',
     liveUrl: 'https://www.calayaengineering.com',
     caseStudyUrl: '/work/calaya-engineering',
   },
@@ -146,8 +147,8 @@ export const workProjects: WorkProject[] = [
       { label: 'Tailwind CSS' },
       { label: '2024', filled: true },
     ],
-    image: kentoksPreview,
-    imageAlt: "Kentok's Kitchen device mockup preview",
+    image: kentoksCover,
+    imageAlt: "Kentok's Kitchen website shown on laptop and phone",
     liveUrl: 'https://kentokskitchen.com/',
     caseStudyUrl: '/work/kentoks-kitchen',
   },

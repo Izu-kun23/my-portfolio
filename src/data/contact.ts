@@ -6,7 +6,15 @@ export const contactDetails = {
   email: 'Izuchukwuonuoha6@gmail.com',
   location: 'United Kingdom',
   name: 'Izuchukwu Tony',
+  collaborationCallUrl: 'https://cal.com/izuchukwu-tony/collaboration-call',
 }
+
+export const collaborationOffers = [
+  'Build a new solution.',
+  'Automate your business.',
+  'Create a custom system.',
+  'Bring your idea to life.',
+] as const
 
 export interface ContactFormPayload {
   name: string
