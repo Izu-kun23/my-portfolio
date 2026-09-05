@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import profileImage from '@/assets/portfolio.png'
 import { aboutIntro, experienceEntries } from '@/data/about'
+import { contactDetails } from '@/data/contact'
 </script>
 <template>
   <section id="experience" class="bg-[var(--ink)] px-4 py-28 text-[var(--paper)] sm:px-7 md:py-44 lg:px-12">
@@ -15,7 +16,19 @@ import { aboutIntro, experienceEntries } from '@/data/about'
       </div>
       <div class="mt-32 grid gap-12 border-t border-white/25 pt-8 lg:grid-cols-12 lg:items-end">
         <figure data-image-reveal class="m-0 overflow-hidden lg:col-span-5"><img :src="profileImage" alt="Profile portrait of Izuchukwu Tony" loading="lazy" class="aspect-[4/5] h-full w-full object-cover object-[65.5%_center] grayscale" /></figure>
-        <div class="lg:col-span-6 lg:col-start-7"><p class="text-base font-medium uppercase tracking-[.08em] text-white/78">Behind the work</p><h3 class="mt-8 mb-0 text-[clamp(3rem,7vw,7rem)] leading-[.88] tracking-[-.06em]">{{ aboutIntro.headline }}</h3><p v-for="paragraph in aboutIntro.paragraphs" :key="paragraph" class="mt-6 mb-0 max-w-xl text-lg leading-relaxed text-white/78">{{ paragraph }}</p></div>
+        <div class="lg:col-span-6 lg:col-start-7">
+          <p class="text-base font-medium uppercase tracking-[.08em] text-white/78">Behind the work</p>
+          <h3 class="mt-8 mb-0 text-[clamp(3rem,7vw,7rem)] leading-[.88] tracking-[-.06em]">{{ aboutIntro.headline }}</h3>
+          <p v-for="paragraph in aboutIntro.paragraphs" :key="paragraph" class="mt-6 mb-0 max-w-xl text-lg leading-relaxed text-white/78">{{ paragraph }}</p>
+          <a
+            :href="contactDetails.collaborationCallUrl"
+            target="_blank"
+            rel="noreferrer"
+            class="mt-8 inline-flex min-h-12 items-center justify-center border border-current px-6 text-sm font-medium uppercase tracking-[.08em] transition-colors hover:bg-[var(--paper)] hover:text-[var(--ink)] sm:min-h-14 sm:px-8"
+          >
+            Let’s Talk
+          </a>
+        </div>
       </div>
     </div>
   </section>

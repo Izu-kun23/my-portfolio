@@ -16,6 +16,15 @@ export const collaborationOffers = [
   'Bring your idea to life.',
 ] as const
 
+export const contactPrompts = [
+  'Got a million dollar idea?',
+  'Want to collaborate?',
+  'Have a project in mind?',
+  'Let’s make something together.',
+  'Tell me what you’re building.',
+  'Ready to start a conversation?',
+] as const
+
 export interface ContactFormPayload {
   name: string
   email: string

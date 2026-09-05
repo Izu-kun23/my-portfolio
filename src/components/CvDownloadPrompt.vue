@@ -1,9 +1,11 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted, shallowRef } from 'vue'
+import { computed, onMounted, onUnmounted, shallowRef } from 'vue'
 
-import { scrollToHash } from '@/composables/useHashScroll'
+import { contactDetails, contactPrompts } from '@/data/contact'
 
 const isOpen = shallowRef(false)
+const promptIndex = shallowRef(0)
+const currentPrompt = computed(() => contactPrompts[promptIndex.value] ?? contactPrompts[0])
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 const usesTouchInput = window.matchMedia('(pointer: coarse)').matches
 let revealTimer: number | undefined
@@ -39,15 +41,18 @@ function openPrompt() {
   playChime()
 }
 
-function togglePrompt() {
-  if (!isOpen.value) playChime()
-  isOpen.value = !isOpen.value
+function cyclePrompt() {
+  promptIndex.value = (promptIndex.value + 1) % contactPrompts.length
 }
 
-function goToContact(event: MouseEvent) {
-  event.preventDefault()
-  isOpen.value = false
-  scrollToHash('#contact')
+function togglePrompt() {
+  if (!isOpen.value) {
+    playChime()
+    isOpen.value = true
+    return
+  }
+
+  cyclePrompt()
 }
 
 onMounted(() => {
@@ -82,15 +87,25 @@ onUnmounted(() => {
           </svg>
         </button>
 
-        <p class="m-0 text-base font-semibold tracking-tight sm:text-lg">
-          Got a million dollar idea.
-        </p>
-        <a
-          href="#contact"
-          class="mt-2 inline-flex items-center gap-2 text-sm font-medium text-black/60 underline decoration-black/30 underline-offset-4 transition-colors hover:text-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black sm:text-base"
-          @click="goToContact"
+        <button
+          type="button"
+          class="m-0 block w-full cursor-pointer border-0 bg-transparent p-0 text-left text-base font-semibold tracking-tight text-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black sm:text-lg"
+          aria-label="Show another prompt"
+          @click="cyclePrompt"
         >
-          Contact me!
+          <Transition name="prompt-copy" mode="out-in">
+            <p :key="currentPrompt" class="m-0" aria-live="polite">
+              {{ currentPrompt }}
+            </p>
+          </Transition>
+        </button>
+        <a
+          :href="contactDetails.collaborationCallUrl"
+          target="_blank"
+          rel="noreferrer"
+          class="mt-2 inline-flex items-center gap-2 text-sm font-medium text-black/60 underline decoration-black/30 underline-offset-4 transition-colors hover:text-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black sm:text-base"
+        >
+          Let’s Talk
           <svg class="size-4" viewBox="0 0 16 16" fill="none" aria-hidden="true">
             <path d="M3 8h10m-4-4 4 4-4 4" stroke="currentColor" stroke-width="1.5" />
           </svg>
@@ -102,7 +117,7 @@ onUnmounted(() => {
       <span class="absolute -top-0.5 -left-0.5 z-10 size-4 rounded-full border-2 border-[#f4f4f1] bg-[#3a3a3a]" aria-hidden="true" />
       <button
         type="button"
-        aria-label="Open contact prompt"
+        :aria-label="isOpen ? 'Show another prompt' : 'Open contact prompt'"
         :aria-expanded="isOpen"
         aria-controls="contact-prompt-panel"
         class="inline-flex size-14 items-center justify-center rounded-full bg-[#3a3a3a] text-[#f4f4f1] shadow-[0_12px_30px_rgba(0,0,0,0.25)] transition-[transform,background-color] hover:scale-105 hover:bg-[#2f2f2f] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2 sm:size-16"
@@ -132,9 +147,22 @@ onUnmounted(() => {
   transform: translateY(0.75rem) scale(0.92);
 }
 
+.prompt-copy-enter-active,
+.prompt-copy-leave-active {
+  transition: opacity 180ms ease, transform 180ms ease;
+}
+
+.prompt-copy-enter-from,
+.prompt-copy-leave-to {
+  opacity: 0;
+  transform: translateY(0.35rem);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .contact-prompt-enter-active,
-  .contact-prompt-leave-active {
+  .contact-prompt-leave-active,
+  .prompt-copy-enter-active,
+  .prompt-copy-leave-active {
     transition-duration: 0ms;
   }
 }
