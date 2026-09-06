@@ -6,6 +6,11 @@ import databaseMonitorCover from '@/assets/cover/db_monitor.png'
 import databaseMonitorAlertSchedule from '@/assets/work/database-monitor/alert-schedule.png'
 import databaseMonitorOverview from '@/assets/work/database-monitor/overview.png'
 import databaseMonitorServices from '@/assets/work/database-monitor/services.png'
+import fathomCover from '@/assets/cover/fathom.jpg'
+import fathomAssistant from '@/assets/work/fathom-stock-monitor/assistant.png'
+import fathomCompare from '@/assets/work/fathom-stock-monitor/compare.png'
+import fathomOverview from '@/assets/work/fathom-stock-monitor/overview.png'
+import fathomWatchlists from '@/assets/work/fathom-stock-monitor/watchlists.png'
 import kentoksCover from '@/assets/cover/kentoks.png'
 import kentoksCart from '@/assets/work/kentoks-kitchen/cart.png'
 import kentoksCategories from '@/assets/work/kentoks-kitchen/categories.png'
@@ -68,6 +73,23 @@ export const workSectionIntro = {
 
 /** Newest projects first. */
 export const workProjects: WorkProject[] = [
+  {
+    id: 'fathom-stock-monitor',
+    category: 'Markets & Intelligence',
+    title: 'AI MARKET INTELLIGENCE',
+    year: '2026',
+    techStack: ['Next.js', 'TypeScript', 'AI'],
+    tags: [
+      { label: 'Next.js' },
+      { label: 'TypeScript' },
+      { label: 'AI' },
+      { label: '2026', filled: true },
+    ],
+    image: fathomCover,
+    imageAlt: 'AI Market Intelligence dashboard on desktop and landing page on phone',
+    liveUrl: 'https://stock-monitor-smoky.vercel.app/',
+    caseStudyUrl: '/work/fathom-stock-monitor',
+  },
   {
     id: 'database-monitor',
     category: 'Automation',
@@ -155,6 +177,51 @@ export const workProjects: WorkProject[] = [
 ]
 
 export const workCaseStudies: Record<string, WorkCaseStudy> = {
+  'fathom-stock-monitor': {
+    id: 'fathom-stock-monitor',
+    title: 'AI Market Intelligence',
+    client: 'Fathom Markets',
+    role: 'Product design & engineering',
+    year: '2026',
+    techStack: ['Next.js', 'TypeScript', 'AI'],
+    tags: [
+      { label: 'Next.js' },
+      { label: 'TypeScript' },
+      { label: 'AI' },
+      { label: '2026', filled: true },
+    ],
+    overview:
+      'Fathom is an AI-powered market desk. Live quotes and technicals sit beside an assistant that only answers after it has numbers.',
+    challenge:
+      'Charts, news, and chat lived in separate tabs, and AI tools often guessed. I needed one place where watchlists stay live and answers are grounded in real data.',
+    solution:
+      'I built the product in Next.js: a live overview with charts, watchlists, a compare view, and an assistant that checks quotes, history, indicators, and news before it replies. Alerts fire in-app, with email when configured.',
+    outcome:
+      'The full desk is live — markets, watchlists, compare, and a grounded AI layer in one place.',
+    liveUrl: 'https://stock-monitor-smoky.vercel.app/',
+    gallery: [
+      {
+        image: fathomOverview,
+        alt: 'Fathom Markets overview with index cards, commodities, and an intraday DIA chart',
+        caption: 'Overview desk with live index cards, commodity tape, and an interactive chart with SMA overlay.',
+      },
+      {
+        image: fathomAssistant,
+        alt: 'Fathom AI assistant briefing with price chart, RSI, and sources',
+        caption: 'Assistant briefings grounded in quotes, technicals, and sourced headlines — not invented commentary.',
+      },
+      {
+        image: fathomCompare,
+        alt: 'Fathom compare view for AAPL and MSFT with AI analysis',
+        caption: 'Multi-ticker compare with live technicals and an AI read of momentum across names.',
+      },
+      {
+        image: fathomWatchlists,
+        alt: 'Fathom watchlists table with quotes, volume, AI status, and news',
+        caption: 'Watchlists as a working tape: quotes, volume, news, and alerts on the names you actually hold.',
+      },
+    ],
+  },
   'database-monitor': {
     id: 'database-monitor',
     title: 'Database Monitor',
