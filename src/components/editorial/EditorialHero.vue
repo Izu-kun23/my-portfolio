@@ -4,12 +4,13 @@ import heroBackgroundUrl from '@/assets/minimalist.jpeg'
 import { useHeroCurtain } from '@/composables/useHeroCurtain'
 
 const heroLines = [
-  'Hi, my name is Izuchukwu Tony',
-  "I'm a software engineer",
-  'I build what moves people',
+  'HI, MY NAME\nIS IZUCHUKWU\nTONY',
+  'I AM A\nSOFTWARE\nENGINEER',
+  'I BUILD\nWHAT MOVES\nPEOPLE.',
 ] as const
 
-const fullHeroCopy = heroLines.join('. ') + '.'
+const fullHeroCopy =
+  'Hi, my name is Izuchukwu Tony. I am a software engineer. I build what moves people.'
 const displayedText = shallowRef('')
 const lineIndex = shallowRef(0)
 const isFadingOut = shallowRef(false)
@@ -134,8 +135,10 @@ onUnmounted(() => {
 
     <div class="relative z-10 mx-auto flex min-h-[100svh] max-w-[1800px] flex-col px-4 pt-24 pb-5 sm:px-7 lg:px-12">
       <div class="relative flex flex-1 items-center justify-center py-20">
-        <h1 class="relative z-10 m-0 w-full max-w-[18ch] text-center text-[clamp(2.35rem,7.2vw,7.25rem)] leading-[0.92] font-medium tracking-[-0.06em] text-balance sm:max-w-[22ch]">
-          <span class="sr-only">{{ fullHeroCopy }}</span>
+        <h1
+          class="relative z-10 m-0 min-h-[2.28em] w-full text-center text-[clamp(2.85rem,10.5vw,12rem)] leading-[0.76] font-medium tracking-[-0.085em] whitespace-pre-line uppercase"
+          :aria-label="fullHeroCopy"
+        >
           <span
             class="hero-line inline-block"
             :class="{ 'hero-line--out': isFadingOut }"
