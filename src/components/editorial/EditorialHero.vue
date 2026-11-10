@@ -3,47 +3,119 @@ import { computed, onMounted, onUnmounted, shallowRef, useTemplateRef } from 'vu
 import heroBackgroundUrl from '@/assets/minimalist.jpeg'
 import { useHeroCurtain } from '@/composables/useHeroCurtain'
 
-const targetText = 'I BUILD\nWHAT MOVES\nPEOPLE.'
+const heroLines = [
+  'Hi, my name is Izuchukwu Tony',
+  "I'm a software engineer",
+  'I build what moves people',
+] as const
+
+const fullHeroCopy = heroLines.join('. ') + '.'
 const displayedText = shallowRef('')
+const lineIndex = shallowRef(0)
+const isFadingOut = shallowRef(false)
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-const isTyping = computed(() => displayedText.value.length < targetText.length)
+const isTyping = computed(() => {
+  const current = heroLines[lineIndex.value]
+  return current !== undefined && displayedText.value.length < current.length
+})
+
 let startTimer: number | undefined
 let typingTimer: number | undefined
+let holdTimer: number | undefined
+let fadeTimer: number | undefined
+let splashObserver: MutationObserver | undefined
 
 const heroRef = useTemplateRef<HTMLElement>('heroRef')
 const curtainRef = useTemplateRef<HTMLElement>('curtainRef')
 
 useHeroCurtain(heroRef, curtainRef)
 
-function stopTyping() {
+function clearTimers() {
   if (startTimer !== undefined) window.clearTimeout(startTimer)
   if (typingTimer !== undefined) window.clearInterval(typingTimer)
+  if (holdTimer !== undefined) window.clearTimeout(holdTimer)
+  if (fadeTimer !== undefined) window.clearTimeout(fadeTimer)
   startTimer = undefined
   typingTimer = undefined
+  holdTimer = undefined
+  fadeTimer = undefined
 }
 
-function startTyping(delay = 0) {
-  stopTyping()
+function findSplashOverlay() {
+  return document.querySelector<HTMLElement>('[aria-modal="true"][role="dialog"]')
+}
+
+function whenSplashGone(callback: () => void) {
+  const splash = findSplashOverlay()
+  if (!splash) {
+    callback()
+    return
+  }
+
+  splashObserver = new MutationObserver(() => {
+    if (!document.contains(splash)) {
+      splashObserver?.disconnect()
+      splashObserver = undefined
+      callback()
+    }
+  })
+  splashObserver.observe(document.body, { childList: true, subtree: true })
+}
+
+function typeCurrentLine() {
+  const current = heroLines[lineIndex.value]
+  if (!current) return
+
   displayedText.value = ''
+  isFadingOut.value = false
+
+  typingTimer = window.setInterval(() => {
+    const nextChar = current[displayedText.value.length] ?? ''
+    displayedText.value += nextChar
+
+    if (displayedText.value.length >= current.length) {
+      if (typingTimer !== undefined) window.clearInterval(typingTimer)
+      typingTimer = undefined
+
+      const isLastLine = lineIndex.value >= heroLines.length - 1
+      if (isLastLine) return
+
+      holdTimer = window.setTimeout(() => {
+        isFadingOut.value = true
+        fadeTimer = window.setTimeout(() => {
+          lineIndex.value += 1
+          typeCurrentLine()
+        }, 420)
+      }, 1600)
+    }
+  }, 58)
+}
+
+function startSequence(delay = 0) {
+  clearTimers()
+  lineIndex.value = 0
+  displayedText.value = ''
+  isFadingOut.value = false
   startTimer = window.setTimeout(() => {
-    typingTimer = window.setInterval(() => {
-      const character = targetText[displayedText.value.length] ?? ''
-      displayedText.value += character
-      if (!isTyping.value) stopTyping()
-    }, 68)
+    typeCurrentLine()
   }, delay)
 }
 
 onMounted(() => {
   if (prefersReducedMotion) {
-    displayedText.value = targetText
+    displayedText.value = heroLines[heroLines.length - 1] ?? ''
     return
   }
-  startTyping(2300)
+
+  whenSplashGone(() => {
+    startSequence(450)
+  })
 })
 
 onUnmounted(() => {
-  stopTyping()
+  clearTimers()
+  splashObserver?.disconnect()
+  splashObserver = undefined
 })
 </script>
 
@@ -62,7 +134,14 @@ onUnmounted(() => {
 
     <div class="relative z-10 mx-auto flex min-h-[100svh] max-w-[1800px] flex-col px-4 pt-24 pb-5 sm:px-7 lg:px-12">
       <div class="relative flex flex-1 items-center justify-center py-20">
-        <h1 class="relative z-10 m-0 min-h-[2.28em] text-center text-[clamp(4.6rem,13vw,13.5rem)] leading-[0.76] font-medium tracking-[-0.085em] whitespace-pre-line uppercase" aria-label="I build what moves people.">{{ displayedText }}<span v-if="isTyping && !prefersReducedMotion" class="typing-cursor" aria-hidden="true" /></h1>
+        <h1 class="relative z-10 m-0 w-full max-w-[18ch] text-center text-[clamp(2.35rem,7.2vw,7.25rem)] leading-[0.92] font-medium tracking-[-0.06em] text-balance sm:max-w-[22ch]">
+          <span class="sr-only">{{ fullHeroCopy }}</span>
+          <span
+            class="hero-line inline-block"
+            :class="{ 'hero-line--out': isFadingOut }"
+            aria-hidden="true"
+          >{{ displayedText }}<span v-if="isTyping && !prefersReducedMotion" class="typing-cursor" aria-hidden="true" /></span>
+        </h1>
       </div>
       <div data-hero-meta class="relative z-20 grid gap-5 border-t border-white/25 pt-4 text-base leading-relaxed uppercase tracking-[0.06em] sm:grid-cols-3">
         <p class="m-0">Freelancer<br />Digital product builder</p>
@@ -83,7 +162,20 @@ onUnmounted(() => {
   mix-blend-mode:screen;
   opacity:.23;
 }
-.typing-cursor{display:inline-block;width:.055em;height:.74em;margin-left:.07em;background:currentColor;animation:typing-blink .62s steps(1,end) infinite}
+.hero-line{
+  opacity:1;
+  transform:translate3d(0,0,0);
+  transition:opacity .42s cubic-bezier(.22,1,.36,1),transform .42s cubic-bezier(.22,1,.36,1);
+}
+.hero-line--out{
+  opacity:0;
+  transform:translate3d(0,-0.18em,0);
+}
+.typing-cursor{display:inline-block;width:.055em;height:.74em;margin-left:.07em;background:currentColor;animation:typing-blink .62s steps(1,end) infinite;vertical-align:-0.05em}
 @keyframes typing-blink{50%{opacity:0}}
-@media(prefers-reduced-motion:reduce){.hero-curtain{display:none}.typing-cursor{display:none}}
+@media(prefers-reduced-motion:reduce){
+  .hero-curtain{display:none}
+  .typing-cursor{display:none}
+  .hero-line,.hero-line--out{opacity:1;transform:none;transition:none}
+}
 </style>
